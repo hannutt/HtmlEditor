@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.IO;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -8,6 +9,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Win32;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace HtmlEditor
@@ -54,8 +56,8 @@ namespace HtmlEditor
         {
             //Point dropPosition = e.GetPosition(txtBox);
             txtBox.AppendText((string)ptagBtn.Content);
-            txtBox.AppendText((string)hTag.Content);
-            
+            txtBox.AppendText((string)h1tagBtn.Content);
+            txtBox.AppendText((string)writedTag.Content);
 
         }
 
@@ -66,6 +68,46 @@ namespace HtmlEditor
             DragDrop.DoDragDrop(ptagBtn, ptagBtn.Content, DragDropEffects.Move);
         }
 
-      
+        //tiedostodialogin avaus
+        private void fDialog_Selected(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.ShowDialog();
+            var fullPath = openFileDialog.FileName;
+            Console.WriteLine("full path "+fullPath);
+        }
+
+        private void h1tagBtn_MouseMove(object sender, MouseEventArgs e)
+        {
+            DragDrop.DoDragDrop(h1tagBtn, h1tagBtn.Content, DragDropEffects.Move);
+        }
+
+        private void writeTag_LostFocus(object sender, RoutedEventArgs e)
+        {
+            string tag = writeTag.Text;
+            writedTag.Content = tag;
+        }
+
+        private void writedTag_MouseMove(object sender, MouseEventArgs e)
+        {
+            DragDrop.DoDragDrop(writedTag, writedTag.Content, DragDropEffects.Move);
+        }
+
+ 
+
+        private void saveBtn_Click(object sender, RoutedEventArgs e)
+        {
+            string path = "C:\\Users\\Omistaja\\Desktop\\testi.html";
+            string content = txtBox.Text;
+            File.WriteAllText(path, content);
+
+        }
+
+        private void viewBtn_Click(object sender, RoutedEventArgs e)
+        {
+            string path = "C:\\Users\\Omistaja\\Desktop\\testi.html";
+            wbrow.Navigate(path);
+        }
     }
+    
 }

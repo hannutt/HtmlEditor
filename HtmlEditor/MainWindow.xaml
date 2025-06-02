@@ -5,17 +5,27 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HtmlEditor"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Html-Editor" Height="450" Width="800">
+    <Window.Background>
+        <ImageBrush ImageSource="/images/bgMedium.jpg"></ImageBrush>
+    </Window.Background>
     <Grid>
-        <TextBox x:Name="txtBox" HorizontalAlignment="Left" Margin="23,188,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="265" Height="174" TextChanged="txtBox_TextChanged" Background="#FFB9B9B9" Initialized="txtBox_Initialized" AllowDrop="True" Drop="txtBox_Drop"/>
-        <Image x:Name="titleImage" HorizontalAlignment="Left" Height="100" Margin="322,39,0,0" VerticalAlignment="Top" Width="100" Source="/images/html64px.png"/>
-        <Label x:Name="titleLbl" Content="EDITOR" HorizontalAlignment="Left" Margin="328,153,0,0" VerticalAlignment="Top" Width="88"/>
+        <TextBox x:Name="txtBox" HorizontalAlignment="Left" Margin="23,188,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="320" Height="200" TextChanged="txtBox_TextChanged" Background="#FFB9B9B9" Initialized="txtBox_Initialized" AllowDrop="True" Drop="txtBox_Drop"/>
+        <Image x:Name="titleImage" HorizontalAlignment="Left" Height="100" Margin="359,34,0,0" VerticalAlignment="Top" Width="100" Source="/images/html64px.png"/>
+        <Label x:Name="titleLbl" Content="EDITOR" HorizontalAlignment="Left" Margin="371,149,0,0" VerticalAlignment="Top" Width="88" FontFamily="Arial Black" FontSize="14"/>
         <ComboBox x:Name="Cbox" HorizontalAlignment="Left" Margin="23,23,0,0" VerticalAlignment="Top" Width="120">
             <ComboBoxItem x:Name="pTag" Content="p" Selected="pTag_Selected"/>
             <ComboBoxItem x:Name="hTag" Content="H1"/>
+            <ComboBoxItem x:Name="fDialog" Content="Open File" Selected="fDialog_Selected"/>
+            <ComboBoxItem x:Name="saveDialog" Content="Save File"/>
         </ComboBox>
-        <WebBrowser x:Name="wbrow" HorizontalAlignment="Left" Height="131" Margin="343,217,0,0" VerticalAlignment="Top" Width="235" SnapsToDevicePixels="True"/>
+        <WebBrowser x:Name="wbrow" HorizontalAlignment="Left" Height="131" Margin="505,231,0,0" VerticalAlignment="Top" Width="235" SnapsToDevicePixels="True"/>
         <Button x:Name="ptagBtn" Content="&lt;p&gt;&lt;/p&gt;" HorizontalAlignment="Left" Margin="23,69,0,0" VerticalAlignment="Top" MouseMove="ptagBtn_MouseMove" />
+        <Button x:Name="h1tagBtn" Content="&lt;h1&gt;&lt;/h1&gt;" HorizontalAlignment="Left" Margin="103,69,0,0" VerticalAlignment="Top" MouseMove="h1tagBtn_MouseMove"/>
+        <TextBox x:Name="writeTag" HorizontalAlignment="Left" Margin="23,157,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" LostFocus="writeTag_LostFocus" />
+        <Button x:Name="writedTag" Content="" HorizontalAlignment="Left" Margin="23,119,0,0" VerticalAlignment="Top" MouseMove="writedTag_MouseMove"/>
+        <Button x:Name="saveBtn" Content="Button" HorizontalAlignment="Left" Margin="314,404,0,0" VerticalAlignment="Top" Click="saveBtn_Click"/>
+        <Button x:Name="viewBtn" Content="Preview" HorizontalAlignment="Left" Margin="605,188,0,0" VerticalAlignment="Top" Click="viewBtn_Click"/>
 
 
 
