@@ -94,19 +94,25 @@ namespace HtmlEditor
         }
 
  
-
+        //tiedoston tallennus dialogin avulla
         private void saveBtn_Click(object sender, RoutedEventArgs e)
         {
-            string path = "C:\\Users\\Omistaja\\Desktop\\testi.html";
             string content = txtBox.Text;
-            File.WriteAllText(path, content);
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.ShowDialog();
+            var fullPath = saveFileDialog.FileName;
+            File.WriteAllText(fullPath, content);
 
         }
-
+        //tiedoston avaus dialogin avulla.
         private void viewBtn_Click(object sender, RoutedEventArgs e)
         {
-            string path = "C:\\Users\\Omistaja\\Desktop\\testi.html";
-            wbrow.Navigate(path);
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.ShowDialog();
+            //valittu tiedosto ja sen polku
+            var fullPath = openFileDialog.FileName;
+            //webbrowser avaa polussa olevan tiedoston
+            wbrow.Navigate(fullPath);
         }
     }
     
