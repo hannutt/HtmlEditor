@@ -9,6 +9,17 @@ can be dragged and dropped into a TextBox element where the HTML page is written
 ags depending on which the user has selected. Users can also create their own HTML elements by typing them into the TextField
 input field. After typing, the element is generated in its own button element and can be dragged and dropped into the TextBox element.
 
+AUTOCOMPLETE TEXT
+
+The user can also utilize automatic text completion when writing html tags. This feature can be enabled by clicking the checkbox.
+When the feature is selected, the application's UI displays an autocomplete box element to the user. The autocomplete functionality
+is implemented using the DotNetProjects.WpfToolkit.Input library. (https://www.nuget.org/packages/DotNetProjects.WpfToolkit.Input/).
+The suggested HTML tags are loaded from a text file used by the application based on the user's input.
+
+Example image of the auto-fill feature in use
+![alt text](wpfAC.png)
+
+
 SAVE AND LOAD FILE
 
 The application uses C#'s FileDialog and File classes to save and load files.

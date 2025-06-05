@@ -19,9 +19,21 @@ namespace HtmlEditor
     /// </summary>
     public partial class MainWindow : Window
     {
+
+
+
         public MainWindow()
         {
+
+
             InitializeComponent();
+            string path = Directory.GetCurrentDirectory();
+            
+            //luetaan tekstitiedoston sisältö htmltags listaan.
+            List<string> htmlTags = System.IO.File.ReadLines("C:\\codes\\C#\\HtmlEditor\\HtmlEditor\\assets\\htmltags.txt").ToList();
+
+            acbox.ItemsSource = htmlTags;
+
         }
 
         private void txtBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -155,6 +167,19 @@ namespace HtmlEditor
             tagBtn2.Visibility = Visibility.Visible;
             string cssBoilerPlate = "html {\r\n}\r\nbody{\r\n}";
             txtBox.AppendText(cssBoilerPlate);
+        }
+
+        private void autoCompCB_Checked(object sender, RoutedEventArgs e)
+        {
+            writeTag.Visibility = Visibility.Hidden;
+            acbox.Visibility = Visibility.Visible;
+        }
+
+        private void autoCompCB_Unchecked(object sender, RoutedEventArgs e)
+        {
+            writeTag.Visibility = Visibility.Visible;
+            acbox.Visibility = Visibility.Hidden;
+
         }
     }
 
