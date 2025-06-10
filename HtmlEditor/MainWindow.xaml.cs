@@ -21,6 +21,8 @@ namespace HtmlEditor
     {
 
 
+        FontSetups fontSetups = new FontSetups();
+        Sizing sizing = new Sizing();
 
         public MainWindow()
         {
@@ -30,7 +32,7 @@ namespace HtmlEditor
             string path = Directory.GetCurrentDirectory();
             
             //luetaan tekstitiedoston sisältö htmltags listaan.
-            List<string> htmlTags = System.IO.File.ReadLines("C:\\codes\\C#\\HtmlEditor\\HtmlEditor\\assets\\htmltags.txt").ToList();
+            List<string> htmlTags = System.IO.File.ReadLines("C:\\Users\\Omistaja\\source\\repos\\hannutt\\HtmlEditor\\HtmlEditor\\assets\\htmltags.txt").ToList();
 
             acbox.ItemsSource = htmlTags;
 
@@ -179,6 +181,38 @@ namespace HtmlEditor
         {
             writeTag.Visibility = Visibility.Visible;
             acbox.Visibility = Visibility.Hidden;
+
+        }
+        private void fontItalic_Selected(object sender, RoutedEventArgs e)
+        {
+            fontSetups.fontItalic(txtBox);
+        }
+      
+
+        private void Grid_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (Keyboard.Modifiers == ModifierKeys.Control && e.Key == Key.R)
+            {
+                fontSetups.DoFontRestore(txtBox);
+                // Call your method here
+            }
+
+        }
+
+        private void boxIncrease_Click(object sender, RoutedEventArgs e)
+        {
+            double txtBoxHeight = txtBox.Height;
+            double txtBoxWidth = txtBox.Width;
+            sizing.txtBoxBigger(txtBox, txtBoxHeight, txtBoxWidth);
+
+
+        }
+
+        private void boxDecrease_Click(object sender, RoutedEventArgs e)
+        {
+            double txtBoxHeight = txtBox.Height;
+            double txtBoxWidth = txtBox.Width;
+            sizing.txtBoxSmaller(txtBox, txtBoxHeight, txtBoxWidth);
 
         }
     }

@@ -6,10 +6,12 @@
         xmlns:local="clr-namespace:HtmlEditor" xmlns:controls="clr-namespace:System.Windows.Controls;assembly=DotNetProjects.Input.Toolkit"
         mc:Ignorable="d"
         Title="Html-Editor" Height="450" Width="800">
+
+	    
     <Window.Background>
         <ImageBrush ImageSource="/images/bgMedium.jpg"></ImageBrush>
     </Window.Background>
-    <Grid>
+    <Grid KeyDown="Grid_KeyDown">
         <TextBox x:Name="txtBox" HorizontalAlignment="Left" Margin="23,188,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="320" Height="200" TextChanged="txtBox_TextChanged" Background="#FFB9B9B9" AllowDrop="True" Drop="txtBox_Drop"/>
         <Image x:Name="titleImage" HorizontalAlignment="Left" Height="100" Margin="359,34,0,0" VerticalAlignment="Top" Width="100" Source="/images/html64px.png"/>
         <Label x:Name="titleLbl" Content="EDITOR" HorizontalAlignment="Left" Margin="371,149,0,0" VerticalAlignment="Top" Width="88" FontFamily="Arial Black" FontSize="14"/>
@@ -18,6 +20,7 @@
             <ComboBoxItem x:Name="hTag" Content="H1"/>
             <ComboBoxItem x:Name="fDialog" Content="Open File" Selected="fDialog_Selected"/>
             <ComboBoxItem x:Name="saveDialog" Content="Save File"/>
+			<ComboBoxItem x:Name="boldFont" Content="Bold font" Selected="fontItalic_Selected"></ComboBoxItem>
         </ComboBox>
         <WebBrowser x:Name="wbrow" HorizontalAlignment="Left" Height="131" Margin="505,231,0,0" VerticalAlignment="Top" Width="235" SnapsToDevicePixels="True"/>
         <Button x:Name="tagBtn1" Content="&lt;p&gt;&lt;/p&gt;" HorizontalAlignment="Left" Margin="23,69,0,0" VerticalAlignment="Top" MouseMove="tagBtn1_MouseMove" Visibility="Hidden" />
@@ -30,8 +33,9 @@
         <RadioButton x:Name="cssRadio" Content="CSS Boilerpate" HorizontalAlignment="Left" Margin="203,69,0,0" VerticalAlignment="Top" Click="cssRadio_Click"/>
         <CheckBox x:Name="autoCompCB" Content="Use AutoComplete" HorizontalAlignment="Left" Margin="169,157,0,0" VerticalAlignment="Top" Checked="autoCompCB_Checked" Unchecked="autoCompCB_Unchecked"/>
         <controls:AutoCompleteBox x:Name="acbox"  HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="43,153,0,0" Width="100" Visibility="Hidden"></controls:AutoCompleteBox>
-
-
-    </Grid>
+		<Button x:Name="boxIncrease" Content="+" HorizontalAlignment="Left" Margin="359,188,0,0" VerticalAlignment="Top" Click="boxIncrease_Click" RenderTransformOrigin="-0.382,-0.048"/>
+		<Button x:Name="boxDecrease" Content="Button" HorizontalAlignment="Left" Margin="359,231,0,0" VerticalAlignment="Top" Click="boxDecrease_Click"/>
+	</Grid>
+	
 
 </Window>
