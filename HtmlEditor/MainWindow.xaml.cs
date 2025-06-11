@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Printing;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -14,15 +15,18 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace HtmlEditor
 {
+
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
+        public int CaretIndex { get; set; }
 
 
         FontSetups fontSetups = new FontSetups();
         Sizing sizing = new Sizing();
+
 
         public MainWindow()
         {
@@ -30,7 +34,7 @@ namespace HtmlEditor
 
             InitializeComponent();
             string path = Directory.GetCurrentDirectory();
-            
+
             //luetaan tekstitiedoston sisältö htmltags listaan.
             List<string> htmlTags = System.IO.File.ReadLines("C:\\Users\\Omistaja\\source\\repos\\hannutt\\HtmlEditor\\HtmlEditor\\assets\\htmltags.txt").ToList();
 
@@ -44,13 +48,11 @@ namespace HtmlEditor
         }
 
 
+        //caretIndex selvittää kursorin sijainnin textboksissa ja sijoittaa
+        //tagin siihen kohtaan, missä kursori on.
         private void pTag_Selected(object sender, RoutedEventArgs e)
         {
-            /*skrollaa riville 8
-            int lineIndex = 8;
-            txtBox.ScrollToLine(lineIndex);*/
-            txtBox.AppendText("<p></p>");
-
+            txtBox.Text = txtBox.Text.Insert(txtBox.CaretIndex, "<p></p>");
         }
 
         private void hTag_Selected(object sender, RoutedEventArgs e)
@@ -187,8 +189,9 @@ namespace HtmlEditor
         {
             fontSetups.fontItalic(txtBox);
         }
-      
 
+
+        //ctrl+r pikanäppäin resetoi fontin muotoilun
         private void Grid_KeyDown(object sender, KeyEventArgs e)
         {
             if (Keyboard.Modifiers == ModifierKeys.Control && e.Key == Key.R)
@@ -215,6 +218,40 @@ namespace HtmlEditor
             sizing.txtBoxSmaller(txtBox, txtBoxHeight, txtBoxWidth);
 
         }
-    }
 
+        private void txtBox_KeyDown(object sender, KeyEventArgs e)
+        {
+
+
+            List<Key> keys = new List<Key>();
+            keys.Add(Key.P);
+            keys.Add(Key.A);
+            keys.Add(Key.B);
+            keys.Add(Key.U);
+            keys.Add(Key.I);
+            keys.Add(Key.L);
+            //listan läpikäynti, jokainen listan alkio on i muuttujassa, count on sama kuin length string listassa
+            for (int i = 0; i < keys.Count; i++)
+            {
+                //jos control + listalla oleva näppäin on painettu tulostetaa tekstilaatikko painettu
+                //näppäin ilman controllia.
+                if (Keyboard.Modifiers == ModifierKeys.Control && e.Key == keys[i])
+                {
+                    txtBox.Text = txtBox.Text.Insert(txtBox.CaretIndex, "<" + e.Key.ToString().ToLower() + ">" + "</" + e.Key.ToString().ToLower() + ">");
+
+                }
+
+
+
+
+            }
+
+
+        }
+
+
+
+
+
+    }
 }

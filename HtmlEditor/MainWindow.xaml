@@ -12,7 +12,7 @@
         <ImageBrush ImageSource="/images/bgMedium.jpg"></ImageBrush>
     </Window.Background>
     <Grid KeyDown="Grid_KeyDown">
-        <TextBox x:Name="txtBox" HorizontalAlignment="Left" Margin="23,188,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="320" Height="200" TextChanged="txtBox_TextChanged" Background="#FFB9B9B9" AllowDrop="True" Drop="txtBox_Drop"/>
+        <TextBox x:Name="txtBox" HorizontalAlignment="Left" Margin="23,188,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="320" Height="200" TextChanged="txtBox_TextChanged" Background="#FFB9B9B9" AllowDrop="True" Drop="txtBox_Drop" AcceptsReturn="True" KeyDown="txtBox_KeyDown"/>
         <Image x:Name="titleImage" HorizontalAlignment="Left" Height="100" Margin="359,34,0,0" VerticalAlignment="Top" Width="100" Source="/images/html64px.png"/>
         <Label x:Name="titleLbl" Content="EDITOR" HorizontalAlignment="Left" Margin="371,149,0,0" VerticalAlignment="Top" Width="88" FontFamily="Arial Black" FontSize="14"/>
         <ComboBox x:Name="Cbox" HorizontalAlignment="Left" Margin="23,23,0,0" VerticalAlignment="Top" Width="120">
