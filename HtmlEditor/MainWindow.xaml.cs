@@ -42,25 +42,6 @@ namespace HtmlEditor
 
         }
 
-        private void txtBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-
-        //caretIndex selvittää kursorin sijainnin textboksissa ja sijoittaa
-        //tagin siihen kohtaan, missä kursori on.
-        private void pTag_Selected(object sender, RoutedEventArgs e)
-        {
-            txtBox.Text = txtBox.Text.Insert(txtBox.CaretIndex, "<p></p>");
-        }
-
-        private void hTag_Selected(object sender, RoutedEventArgs e)
-        {
-            txtBox.AppendText("<h1></h1>");
-
-        }
-
 
         //mahdollistaa raahattavan elementin Content propertyn pudottamisen tekstikenttään.
         private void txtBox_Drop(object sender, DragEventArgs e)
@@ -240,18 +221,12 @@ namespace HtmlEditor
                     txtBox.Text = txtBox.Text.Insert(txtBox.CaretIndex, "<" + e.Key.ToString().ToLower() + ">" + "</" + e.Key.ToString().ToLower() + ">");
 
                 }
-
-
-
-
             }
-
-
         }
 
-
-
-
-
+        private void ClrPcker_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
+        {
+            txtBox.Text = "#" + ClrPcker.SelectedColor.ToString();
+        }
     }
 }
