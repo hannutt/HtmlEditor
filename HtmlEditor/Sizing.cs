@@ -24,5 +24,12 @@ namespace HtmlEditor
             txtBox.Width = txtBoxWidth;
 
         }
+
+        public void previewWindowSize(double value, System.Windows.Controls.WebBrowser wbrow, System.Windows.Controls.Label sliderVal)
+        {
+            wbrow.Width= value;
+            wbrow.Height= value;
+            //sliderVal.Content = value.ToString();
+        }
     }
 }

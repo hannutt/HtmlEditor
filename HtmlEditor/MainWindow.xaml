@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:HtmlEditor" xmlns:controls="clr-namespace:System.Windows.Controls;assembly=DotNetProjects.Input.Toolkit"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="Html-Editor" Height="450" Width="800">
+        Title="Html-Editor" Height="470" Width="800">
 
 	    
     <Window.Background>
@@ -28,7 +28,7 @@
         <TextBox x:Name="writeTag" HorizontalAlignment="Left" Margin="23,71,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" LostFocus="writeTag_LostFocus" />
         <Button x:Name="writedTag" Content="" HorizontalAlignment="Left" Margin="23,119,0,0" VerticalAlignment="Top" MouseMove="writedTag_MouseMove"/>
         <Button x:Name="saveBtn" Content="Button" HorizontalAlignment="Left" Margin="314,404,0,0" VerticalAlignment="Top" Click="saveBtn_Click"/>
-        <Button x:Name="viewBtn" Content="Preview" HorizontalAlignment="Left" Margin="605,188,0,0" VerticalAlignment="Top" Click="viewBtn_Click"/>
+        <Button x:Name="viewBtn" Content="Preview" HorizontalAlignment="Left" Margin="505,193,0,0" VerticalAlignment="Top" Click="viewBtn_Click"/>
         <RadioButton x:Name="htmlRadio" Content="HTML Boilerbate" HorizontalAlignment="Left" Margin="203,30,0,0" VerticalAlignment="Top" Checked="htmlRadio_Checked"/>
         <RadioButton x:Name="cssRadio" Content="CSS Boilerpate" HorizontalAlignment="Left" Margin="203,69,0,0" VerticalAlignment="Top" Click="cssRadio_Click"/>
         <CheckBox x:Name="autoCompCB" Content="Use AutoComplete" HorizontalAlignment="Left" Margin="203,119,0,0" VerticalAlignment="Top" Checked="autoCompCB_Checked" Unchecked="autoCompCB_Unchecked"/>
@@ -36,6 +36,8 @@
 		<Button x:Name="boxIncrease" Content="+" HorizontalAlignment="Left" Margin="359,188,0,0" VerticalAlignment="Top" Click="boxIncrease_Click" RenderTransformOrigin="-0.382,-0.048"/>
 		<Button x:Name="boxDecrease" Content="Button" HorizontalAlignment="Left" Margin="359,231,0,0" VerticalAlignment="Top" Click="boxDecrease_Click"/>
         <xctk:ColorPicker x:Name="ClrPcker" HorizontalAlignment="Left" VerticalAlignment="Top" Width="60" Height="20" Margin="23,159,0,255" SelectedColorChanged="ClrPcker_SelectedColorChanged"></xctk:ColorPicker>
+        <Slider x:Name="previewSlider" HorizontalAlignment="Left" Margin="590,195,0,0" VerticalAlignment="Top" Width="120" Minimum="200" ValueChanged="previewSlider_ValueChanged" Maximum="400"/>
+        <Label x:Name="sliderVal" Content="{Binding ElementName=previewSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="715,204,0,0" VerticalAlignment="Top"/>
     </Grid>
 	
 

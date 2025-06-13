@@ -24,7 +24,8 @@ Example image of the auto-fill feature in use
 
 RESPONSIVE FEATURES
 
-Both the editing and preview windows can be resized with the click of a button. Each click changes the width and height of the window by 5 pixels.
+Both the edit and preview windows can be resized. The edit window can be resized by clicking the plus or minus button. Each click changes the width and height of the window by 5 pixels.
+The preview window can be resized using the WPF slider component.
 
 SAVE AND LOAD FILE
 

@@ -228,5 +228,11 @@ namespace HtmlEditor
         {
             txtBox.Text = "#" + ClrPcker.SelectedColor.ToString();
         }
+
+        private void previewSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            sizing.previewWindowSize(previewSlider.Value,wbrow,sliderVal);
+            //MessageBox.Show(previewSlider.Value.ToString());
+        }
     }
 }
