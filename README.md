@@ -33,7 +33,9 @@ The application uses C#'s FileDialog and File classes to save and load files.
 
 WEBSITE PREVIEW
 
-User can preview the website that is under construction. The application has a C# WebBrowser embedded in the same user interface. See sample image below.
+The user can preview a website under construction or another HTML file of their choice. The application uses the C# browser library to display the HTML content. The web browser view is embedded in the same UI.
+
+By default, the function opens the HTML file that the user has saved for display, but the user can also select another HTML file to display by clicking the checkbox and then pressing the "preview" button. The checkbox and button open a file selection dialog from which the user can browse to the HTML file they want to display. See the example image below.
 
 ![alt text](htmleditor.png)
 

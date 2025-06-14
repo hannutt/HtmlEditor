@@ -1,4 +1,7 @@
-﻿using System.IO;
+﻿using Microsoft.Win32;
+using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Printing;
 using System.Text;
 using System.Windows;
@@ -10,7 +13,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Microsoft.Win32;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace HtmlEditor
@@ -21,7 +23,23 @@ namespace HtmlEditor
     /// </summary>
     public partial class MainWindow : Window
     {
-        public int CaretIndex { get; set; }
+        //bool openFileDialog = false;
+        //kenttä
+        private String currentFile;
+        //property
+        public String CurrentFile
+        {
+            get { return currentFile; }
+            set { currentFile = value; }
+        }
+        private bool openFileDialog;
+
+        public bool OpenFileDialog
+        {
+            get { return openFileDialog; }
+            set { openFileDialog = value; }
+        }
+        public int CaretIndex;
 
 
         FontSetups fontSetups = new FontSetups();
@@ -39,6 +57,7 @@ namespace HtmlEditor
             List<string> htmlTags = System.IO.File.ReadLines("C:\\Users\\Omistaja\\source\\repos\\hannutt\\HtmlEditor\\HtmlEditor\\assets\\htmltags.txt").ToList();
 
             acbox.ItemsSource = htmlTags;
+
 
         }
 
@@ -112,6 +131,7 @@ namespace HtmlEditor
 
                 saveFileDialog.ShowDialog();
                 var fullPath = saveFileDialog.FileName;
+                CurrentFile = fullPath;
                 File.WriteAllText(fullPath, content);
 
             }
@@ -126,17 +146,32 @@ namespace HtmlEditor
         //tiedoston avaus dialogin avulla.
         private void viewBtn_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.ShowDialog();
-            //valittu tiedosto ja sen polku
-            var fullPath = openFileDialog.FileName;
-            //webbrowser avaa polussa olevan tiedoston
-            wbrow.Navigate(fullPath);
+            try
+            {
+                if (openFileDialog)
+                {
+                    OpenFileDialog openFileDialog = new OpenFileDialog();
+                    openFileDialog.ShowDialog();
+                    //valittu tiedosto ja sen polku
+                    var fullPath = openFileDialog.FileName;
+                    //webbrowser avaa polussa olevan tiedoston*/
+                    wbrow.Navigate(fullPath);
+
+                }
+                else
+                {
+                    wbrow.Navigate(currentFile);
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("File open cancelled");
+            }
         }
 
         private void htmlRadio_Checked(object sender, RoutedEventArgs e)
         {
-            string boilerPlate = "<!DOCTYPE html>\r\n<html>\r\n<head>\r\n<link rel=\"stylesheet\r\nhref => \r\n<title>Page Title</title>\r\n</head>\r\n\r\n<body>\r\n    <h2>Welcome</h2>\r\n</body>\r\n\r\n</html>";
+            string boilerPlate = "<!DOCTYPE html>\r\n<html>\r\n<head>\r\n<link rel=\"stylesheet\" href=\"styles.css\"> \r\n<title>Page Title</title>\r\n</head>\r\n\r\n<body>\r\n    <h2>Welcome</h2>\r\n</body>\r\n\r\n</html>";
             txtBox.AppendText(boilerPlate);
             //buttonit muutetaan näkyviksi
             tagBtn1.Visibility = Visibility.Visible;
@@ -211,6 +246,9 @@ namespace HtmlEditor
             keys.Add(Key.U);
             keys.Add(Key.I);
             keys.Add(Key.L);
+
+
+
             //listan läpikäynti, jokainen listan alkio on i muuttujassa, count on sama kuin length string listassa
             for (int i = 0; i < keys.Count; i++)
             {
@@ -221,18 +259,30 @@ namespace HtmlEditor
                     txtBox.Text = txtBox.Text.Insert(txtBox.CaretIndex, "<" + e.Key.ToString().ToLower() + ">" + "</" + e.Key.ToString().ToLower() + ">");
 
                 }
+                /*
+                else if (Keyboard.Modifiers == ModifierKeys.Shift && e.Key == keys[i] && Keyboard.IsKeyDown(keys[i]))
+                {
+                    txtBox.Text = txtBox.Text.Insert(txtBox.CaretIndex, "<" +Keyboard.IsKeyDown+ e.Key.ToString().ToLower() + ">" + "</" + e.Key.ToString().ToLower() + e.Key.ToString().ToLower() + ">");
+
+                }*/
             }
         }
 
         private void ClrPcker_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
         {
-            txtBox.Text = "#" + ClrPcker.SelectedColor.ToString();
+            txtBox.Text = txtBox.Text.Insert(txtBox.CaretIndex, "#" + ClrPcker.SelectedColor.ToString());
         }
 
         private void previewSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            sizing.previewWindowSize(previewSlider.Value,wbrow,sliderVal);
-            //MessageBox.Show(previewSlider.Value.ToString());
+            sizing.previewWindowSize(previewSlider.Value, wbrow, sliderVal);
+
+        }
+
+        private void openAnother_Checked(object sender, RoutedEventArgs e)
+        {
+            openFileDialog = true;
+
         }
     }
 }
