@@ -13,7 +13,7 @@
         <ImageBrush ImageSource="/images/bgMedium.jpg"></ImageBrush>
     </Window.Background>
     <Grid KeyDown="Grid_KeyDown">
-        <TextBox x:Name="txtBox" HorizontalAlignment="Left" Margin="23,188,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="320" Height="200"  Background="#FFB9B9B9" AllowDrop="True" Drop="txtBox_Drop" AcceptsReturn="True" KeyDown="txtBox_KeyDown"/>
+        <TextBox x:Name="txtBox" HorizontalAlignment="Left" Margin="23,188,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="320" Height="200" MinWidth="100" MinHeight="100"  Background="#FFB9B9B9" AllowDrop="True" Drop="txtBox_Drop" AcceptsReturn="True" KeyDown="txtBox_KeyDown"/>
         <Image x:Name="titleImage" HorizontalAlignment="Left" Height="100" Margin="359,34,0,0" VerticalAlignment="Top" Width="100" Source="/images/html64px.png"/>
         <Label x:Name="titleLbl" Content="EDITOR" HorizontalAlignment="Left" Margin="371,149,0,0" VerticalAlignment="Top" Width="88" FontFamily="Arial Black" FontSize="14"/>
         <ComboBox x:Name="Cbox" HorizontalAlignment="Left" Margin="23,23,0,0" VerticalAlignment="Top" Width="120">
@@ -25,18 +25,19 @@
         <WebBrowser x:Name="wbrow" HorizontalAlignment="Left" Height="131" Margin="505,257,0,0" VerticalAlignment="Top" Width="235" SnapsToDevicePixels="True"/>
         <Button x:Name="tagBtn1" Content="&lt;p&gt;&lt;/p&gt;" HorizontalAlignment="Left" Margin="23,69,0,0" VerticalAlignment="Top" MouseMove="tagBtn1_MouseMove" Visibility="Hidden" />
         <Button x:Name="tagBtn2" Content="&lt;h1&gt;&lt;/h1&gt;" HorizontalAlignment="Left" Margin="103,69,0,0" VerticalAlignment="Top" MouseMove="tagBtn2_MouseMove" Visibility="Hidden"/>
-        <TextBox x:Name="writeTag" HorizontalAlignment="Left" Margin="23,71,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" LostFocus="writeTag_LostFocus" />
+        <TextBox x:Name="writeTag" HorizontalAlignment="Left" Margin="23,95,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" LostFocus="writeTag_LostFocus" Text="WRITE TAG HERE" />
         <Button x:Name="writedTag" Content="" HorizontalAlignment="Left" Margin="23,119,0,0" VerticalAlignment="Top" MouseMove="writedTag_MouseMove"/>
-        <Button x:Name="saveBtn" Content="Button" HorizontalAlignment="Left" Margin="314,404,0,0" VerticalAlignment="Top" Click="saveBtn_Click"/>
+        <Button x:Name="saveBtn" Content="Save template" HorizontalAlignment="Left" Margin="359,368,0,0" VerticalAlignment="Top" Click="saveBtn_Click"/>
         <Button x:Name="viewBtn" Content="Preview current" HorizontalAlignment="Left" Margin="505,193,0,0" VerticalAlignment="Top" Click="viewBtn_Click"/>
         <RadioButton x:Name="htmlRadio" Content="HTML Boilerbate" HorizontalAlignment="Left" Margin="203,30,0,0" VerticalAlignment="Top" Checked="htmlRadio_Checked"/>
         <RadioButton x:Name="cssRadio" Content="CSS Boilerpate" HorizontalAlignment="Left" Margin="203,69,0,0" VerticalAlignment="Top" Click="cssRadio_Click"/>
         <CheckBox x:Name="autoCompCB" Content="Use AutoComplete" HorizontalAlignment="Left" Margin="203,119,0,0" VerticalAlignment="Top" Checked="autoCompCB_Checked" Unchecked="autoCompCB_Unchecked"/>
         <controls:AutoCompleteBox x:Name="acbox"  HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="43,153,0,0" Width="100" Visibility="Hidden"></controls:AutoCompleteBox>
-        <Button x:Name="boxIncrease" Content="+" HorizontalAlignment="Left" Margin="359,188,0,0" VerticalAlignment="Top" Click="boxIncrease_Click" RenderTransformOrigin="-0.382,-0.048"/>
-        <Button x:Name="boxDecrease" Content="Button" HorizontalAlignment="Left" Margin="359,231,0,0" VerticalAlignment="Top" Click="boxDecrease_Click"/>
+        <Button x:Name="boxIncreaseBtn" Content="Size +" HorizontalAlignment="Left" Margin="359,188,0,0" VerticalAlignment="Top" Click="boxIncrease_Click" RenderTransformOrigin="-0.382,-0.048"/>
+        <Button x:Name="boxDecreaseBtn" Content="Size -" HorizontalAlignment="Left" Margin="359,231,0,0" VerticalAlignment="Top" Click="boxDecrease_Click"/>
         <xctk:ColorPicker x:Name="ClrPcker" HorizontalAlignment="Left" VerticalAlignment="Top" Width="60" Height="20" Margin="23,159,0,255" SelectedColorChanged="ClrPcker_SelectedColorChanged"></xctk:ColorPicker>
         <Slider x:Name="previewSlider" HorizontalAlignment="Left" Margin="657,193,0,0" VerticalAlignment="Top" Width="120" Minimum="200" ValueChanged="previewSlider_ValueChanged" Maximum="400"/>
+        <!-- labelin bindaus slider valuen lanssa -->
         <Label x:Name="sliderVal" Content="{Binding ElementName=previewSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="715,204,0,0" VerticalAlignment="Top"/>
         <CheckBox x:Name="openAnother" Content="Open another" HorizontalAlignment="Left" Margin="505,231,0,0" VerticalAlignment="Top" Checked="openAnother_Checked" />
     </Grid>

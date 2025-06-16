@@ -9,7 +9,7 @@ A Windows Presentation Foundation-based desktop application that helps the user 
 HTML TAGS SHORTCUTS
 
 For now, the application supports adding single-letter HTML tags using keyboard shortcuts.
-For example, Control+p will add a <p></p> tag to the position in the editing view where the cursor is. The application determines the cursor position using the CaretIndex property in C#.
+For example, Control+p will add a p tag to the position in the editing view where the cursor is. The application determines the cursor position using the CaretIndex property in C#.
 (https://learn.microsoft.com/en-us/dotnet/api/system.windows.controls.textbox.caretindex?view=windowsdesktop-9.0). Keyboard bindings are done with C# WPF KeyDown events.
 
 AUTOCOMPLETE TEXT
@@ -22,10 +22,11 @@ The suggested HTML tags are loaded from a text file used by the application base
 Example image of the auto-fill feature in use
 ![alt text](HtmlEditor/images/wpfAC.png)
 
-RESPONSIVE FEATURES
+SIZING & RESPONSIVE FEATURES
 
-Both the edit and preview windows can be resized. The edit window can be resized by clicking the plus or minus button. Each click changes the width and height of the window by 5 pixels.
-The preview window can be resized using the WPF slider component.
+Both the edit and preview windows can be resized. The edit window can be resized by clicking the plus or minus button. Each click changes the width and height of the window by 5 pixels. The preview window can be resized using the WPF slider component.
+
+When the user increases or decreases the size of the text box, the button elements in the UI react to the size changes. When the size increases, the button elements move horizontally 5 pixels to the right per click, and when the size decreases, they move horizontally 5 pixels to the left.
 
 SAVE AND LOAD FILE
 

@@ -222,7 +222,7 @@ namespace HtmlEditor
         {
             double txtBoxHeight = txtBox.Height;
             double txtBoxWidth = txtBox.Width;
-            sizing.txtBoxBigger(txtBox, txtBoxHeight, txtBoxWidth);
+            sizing.txtBoxBigger(txtBox, txtBoxHeight, txtBoxWidth,saveBtn,boxDecreaseBtn,boxIncreaseBtn);
 
 
         }
@@ -231,7 +231,7 @@ namespace HtmlEditor
         {
             double txtBoxHeight = txtBox.Height;
             double txtBoxWidth = txtBox.Width;
-            sizing.txtBoxSmaller(txtBox, txtBoxHeight, txtBoxWidth);
+            sizing.txtBoxSmaller(txtBox, txtBoxHeight, txtBoxWidth,saveBtn);
 
         }
 
@@ -275,7 +275,7 @@ namespace HtmlEditor
 
         private void previewSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            sizing.previewWindowSize(previewSlider.Value, wbrow, sliderVal);
+            sizing.previewWindowSize(previewSlider.Value, wbrow);
 
         }
 
