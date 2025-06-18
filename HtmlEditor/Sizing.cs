@@ -20,7 +20,7 @@ namespace HtmlEditor
         public double SizeBtnPlus
         {
             get { return sizeBtnPlus; }
-            set {  sizeBtnPlus = value; }
+            set { sizeBtnPlus = value; }
         }
 
         private double sizeBtnMinus;
@@ -35,7 +35,7 @@ namespace HtmlEditor
             txtBoxWidth += 5;
             txtBox.Height = txtBoxHeight;
             txtBox.Width = txtBoxWidth;
-            
+
             //asetetaan savemarginleft propertyn avulla buttonin margin left arvo SaveBtnMarginLeft
             //kenttään.
             SaveBtnMarginLeft = saveBtn.Margin.Left;
@@ -48,8 +48,8 @@ namespace HtmlEditor
                 saveBtnMarginLeft += 5;
                 sizeBtnPlus += 5;
                 sizeBtnMinus += 5;
-                saveBtn.Margin = new System.Windows.Thickness(saveBtnMarginLeft,saveBtn.Margin.Top,saveBtn.Margin.Right,saveBtn.Margin.Bottom);
-                boxDecreaseBtn.Margin = new System.Windows.Thickness(sizeBtnPlus, boxDecreaseBtn.Margin.Top,boxDecreaseBtn.Margin.Right, boxDecreaseBtn.Margin.Bottom);
+                saveBtn.Margin = new System.Windows.Thickness(saveBtnMarginLeft, saveBtn.Margin.Top, saveBtn.Margin.Right, saveBtn.Margin.Bottom);
+                boxDecreaseBtn.Margin = new System.Windows.Thickness(sizeBtnPlus, boxDecreaseBtn.Margin.Top, boxDecreaseBtn.Margin.Right, boxDecreaseBtn.Margin.Bottom);
                 boxIncreaseBtn.Margin = new System.Windows.Thickness(sizeBtnMinus, boxIncreaseBtn.Margin.Top, boxDecreaseBtn.Margin.Right, boxDecreaseBtn.Margin.Bottom);
             }
         }
@@ -64,13 +64,13 @@ namespace HtmlEditor
             txtBox.Height = txtBoxHeight;
             txtBox.Width = txtBoxWidth;
             SaveBtnMarginLeft = saveBtn.Margin.Left;
-            if (txtBoxWidth< 330)
+            if (txtBoxWidth < 330)
             {
                 saveBtnMarginLeft -= 5;
                 saveBtn.Margin = new System.Windows.Thickness(saveBtnMarginLeft, saveBtn.Margin.Top, saveBtn.Margin.Right, saveBtn.Margin.Bottom);
 
             }
-         
+
 
         }
 
@@ -78,7 +78,16 @@ namespace HtmlEditor
         {
             wbrow.Width = value;
             wbrow.Height = value;
-            
+
+        }
+
+        public void restoreSizesAndMargins(System.Windows.Controls.TextBox txtBox, System.Windows.Controls.Button boxDecreaseBtn, System.Windows.Controls.Button boxIncreaseBtn)
+        {
+            txtBox.Width = 320;
+            txtBox.Height = 200;
+            boxIncreaseBtn.Margin = new System.Windows.Thickness(359, 188, 0, 0);
+            boxDecreaseBtn.Margin = new System.Windows.Thickness(359, 231, 0, 0);
+
         }
     }
 }

@@ -13,7 +13,7 @@
         <ImageBrush ImageSource="/images/bgMedium.jpg"></ImageBrush>
     </Window.Background>
     <Grid KeyDown="Grid_KeyDown">
-        <TextBox x:Name="txtBox" HorizontalAlignment="Left" Margin="23,188,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="320" Height="200" MinWidth="100" MinHeight="100"  Background="#FFB9B9B9" AllowDrop="True" Drop="txtBox_Drop" AcceptsReturn="True" KeyDown="txtBox_KeyDown"/>
+        <TextBox x:Name="txtBox" HorizontalAlignment="Left" Margin="23,188,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="320" Height="200" Background="#FFB9B9B9" AllowDrop="True" Drop="txtBox_Drop" AcceptsReturn="True" KeyDown="txtBox_KeyDown"/>
         <Image x:Name="titleImage" HorizontalAlignment="Left" Height="100" Margin="359,34,0,0" VerticalAlignment="Top" Width="100" Source="/images/html64px.png"/>
         <Label x:Name="titleLbl" Content="EDITOR" HorizontalAlignment="Left" Margin="371,149,0,0" VerticalAlignment="Top" Width="88" FontFamily="Arial Black" FontSize="14"/>
         <ComboBox x:Name="Cbox" HorizontalAlignment="Left" Margin="23,23,0,0" VerticalAlignment="Top" Width="120">
@@ -21,6 +21,8 @@
             <ComboBoxItem x:Name="saveDialog" Content="Save File"/>
             <ComboBoxItem x:Name="italicFont" Content="Italic font" Selected="fontItalic_Selected"></ComboBoxItem>
             <ComboBoxItem x:Name="boldFont" Content="Bold Font"></ComboBoxItem>
+            <ComboBoxItem x:Name="saveValues" Content="Save width and height" Selected="saveValues_Selected"></ComboBoxItem>
+            <ComboBoxItem x:Name="loadValues" Content="Load width and height" Selected="loadValues_Selected"></ComboBoxItem>
         </ComboBox>
         <WebBrowser x:Name="wbrow" HorizontalAlignment="Left" Height="131" Margin="505,257,0,0" VerticalAlignment="Top" Width="235" SnapsToDevicePixels="True"/>
         <Button x:Name="tagBtn1" Content="&lt;p&gt;&lt;/p&gt;" HorizontalAlignment="Left" Margin="23,69,0,0" VerticalAlignment="Top" MouseMove="tagBtn1_MouseMove" Visibility="Hidden" />
@@ -40,6 +42,7 @@
         <!-- labelin bindaus slider valuen lanssa -->
         <Label x:Name="sliderVal" Content="{Binding ElementName=previewSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="715,204,0,0" VerticalAlignment="Top"/>
         <CheckBox x:Name="openAnother" Content="Open another" HorizontalAlignment="Left" Margin="505,231,0,0" VerticalAlignment="Top" Checked="openAnother_Checked" />
+        <Button x:Name="resetBtn" Content="Reset sizes" HorizontalAlignment="Left" Margin="356,268,0,0" VerticalAlignment="Top" Click="resetBtn_Click"/>
     </Grid>
 
 

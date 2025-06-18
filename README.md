@@ -1,4 +1,4 @@
-Project keywords: C#, WPF, Drag and Drop, HTML-editor
+Project keywords: C#, WPF, Drag and Drop, SQLite
 
 ABOUT THE APPLICATION
 
@@ -27,6 +27,10 @@ SIZING & RESPONSIVE FEATURES
 Both the edit and preview windows can be resized. The edit window can be resized by clicking the plus or minus button. Each click changes the width and height of the window by 5 pixels. The preview window can be resized using the WPF slider component.
 
 When the user increases or decreases the size of the text box, the button elements in the UI react to the size changes. When the size increases, the button elements move horizontally 5 pixels to the right per click, and when the size decreases, they move horizontally 5 pixels to the left.
+
+SAVE THE SIZE DEFINITION
+
+The application uses a SQLite database where the user can store the width and height of the text box and retrieve the values ​​later. The values ​​are stored as a real data type, and if the user retrieves the stored values, they are passed as parameters to the width and height properties of the text box. After passing the values, the application resizes the text box to match the values ​​retrieved from the database.
 
 SAVE AND LOAD FILE
 

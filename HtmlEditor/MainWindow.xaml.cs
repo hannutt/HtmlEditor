@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using static System.Net.Mime.MediaTypeNames;
 
+
 namespace HtmlEditor
 {
 
@@ -44,7 +45,7 @@ namespace HtmlEditor
 
         FontSetups fontSetups = new FontSetups();
         Sizing sizing = new Sizing();
-
+        DBconnection dbconnection = new DBconnection();
 
         public MainWindow()
         {
@@ -57,6 +58,7 @@ namespace HtmlEditor
             List<string> htmlTags = System.IO.File.ReadLines("C:\\Users\\Omistaja\\source\\repos\\hannutt\\HtmlEditor\\HtmlEditor\\assets\\htmltags.txt").ToList();
 
             acbox.ItemsSource = htmlTags;
+
 
 
         }
@@ -222,7 +224,7 @@ namespace HtmlEditor
         {
             double txtBoxHeight = txtBox.Height;
             double txtBoxWidth = txtBox.Width;
-            sizing.txtBoxBigger(txtBox, txtBoxHeight, txtBoxWidth,saveBtn,boxDecreaseBtn,boxIncreaseBtn);
+            sizing.txtBoxBigger(txtBox, txtBoxHeight, txtBoxWidth, saveBtn, boxDecreaseBtn, boxIncreaseBtn);
 
 
         }
@@ -231,14 +233,12 @@ namespace HtmlEditor
         {
             double txtBoxHeight = txtBox.Height;
             double txtBoxWidth = txtBox.Width;
-            sizing.txtBoxSmaller(txtBox, txtBoxHeight, txtBoxWidth,saveBtn);
+            sizing.txtBoxSmaller(txtBox, txtBoxHeight, txtBoxWidth, saveBtn);
 
         }
 
         private void txtBox_KeyDown(object sender, KeyEventArgs e)
         {
-
-
             List<Key> keys = new List<Key>();
             keys.Add(Key.P);
             keys.Add(Key.A);
@@ -246,8 +246,6 @@ namespace HtmlEditor
             keys.Add(Key.U);
             keys.Add(Key.I);
             keys.Add(Key.L);
-
-
 
             //listan läpikäynti, jokainen listan alkio on i muuttujassa, count on sama kuin length string listassa
             for (int i = 0; i < keys.Count; i++)
@@ -283,6 +281,22 @@ namespace HtmlEditor
         {
             openFileDialog = true;
 
+        }
+
+        private void resetBtn_Click(object sender, RoutedEventArgs e)
+        {
+            sizing.restoreSizesAndMargins(txtBox, boxDecreaseBtn, boxIncreaseBtn);
+
+        }
+
+        private void saveValues_Selected(object sender, RoutedEventArgs e)
+        {
+            dbconnection.connectToDbAndSave(txtBox.Width, txtBox.Height);
+        }
+
+        private void loadValues_Selected(object sender, RoutedEventArgs e)
+        {
+            dbconnection.fetchDbData(txtBox);
         }
     }
 }
