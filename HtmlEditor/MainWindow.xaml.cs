@@ -180,6 +180,16 @@ namespace HtmlEditor
             tagBtn2.Visibility = Visibility.Visible;
 
         }
+        private void htmlBsJquery_Checked(object sender, RoutedEventArgs e)
+        {
+
+            /* \r\n + välilyönneillä saa tekstin sisennettyä*/
+            
+            string boilerPlate = "<!DOCTYPE html>\r\n<html>\r\n<head>\r\n  <link rel=\"stylesheet\"href=\"https://\r\n    maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/\r\n    bootstrap.min.css/>\r\n  <script src=\"https://ajax.googleapis.com/ajax/libs/\r\n    jquery/3.7.1/jquery.min.js></script>\r\n    <script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js>\r\n</script>\r\n<link rel=\"stylesheet\" href=\"styles.css\"> \r\n<title>Page Title</title>\r\n</head>\r\n\r\n<body>\r\n    <h2>Welcome</h2>\r\n</body>\r\n\r\n</html>";
+
+            txtBox.AppendText(boilerPlate);
+
+        }
 
         private void cssRadio_Click(object sender, RoutedEventArgs e)
         {
@@ -303,5 +313,7 @@ namespace HtmlEditor
         {
             dbconnection.savePreViewValues(wbrow.Width,wbrow.Height);
         }
+
+       
     }
 }

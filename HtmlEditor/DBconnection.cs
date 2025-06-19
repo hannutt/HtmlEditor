@@ -13,7 +13,7 @@ namespace HtmlEditor
     {
         public void saveTxtBoxValues(double width, double height, System.Windows.Thickness plusMargin, Thickness minusMargin, Thickness resetMargin, Thickness saveBtnMargin)
         {
-            
+
             var sql = "INSERT INTO data (tboxwidth, tboxheight, plusbtnleft, plusbtntop, minusbtnleft, minusbtntop, resetbtnleft, resetbtntop, savebtnleft, savebtntop)"
                 + "VALUES (@tboxwidth, @tboxheight, @plusbtnleft, @plusbtntop, @minusbtnleft, @minusbtntop, @resetbtnleft, @resetbtntop, @savebtnleft, @savebtntop)";
             try
@@ -31,7 +31,7 @@ namespace HtmlEditor
                 command.Parameters.AddWithValue("@resetbtntop", resetMargin.Top);
                 command.Parameters.AddWithValue("@resetbtnleft", resetMargin.Left);
                 command.Parameters.AddWithValue("@savebtnleft", saveBtnMargin.Left);
-                command.Parameters.AddWithValue("@savebtntop",saveBtnMargin.Top);
+                command.Parameters.AddWithValue("@savebtntop", saveBtnMargin.Top);
                 var rowInserted = command.ExecuteNonQuery();
 
             }
@@ -40,10 +40,10 @@ namespace HtmlEditor
                 Console.WriteLine(ex.Message);
                 MessageBox.Show(ex.Message.ToString());
             }
-            
+
         }
 
-        public void savePreViewValues(double width,double height)
+        public void savePreViewValues(double width, double height)
         {
             var sql = "INSERT INTO pdata (pboxwidth, pboxheight)" + "VALUES (@pboxwidth, @pboxheight)";
             try
@@ -66,16 +66,6 @@ namespace HtmlEditor
 
         public void fetchDbData(System.Windows.Controls.TextBox txtBox, System.Windows.Controls.Button boxDecreaseBtn, System.Windows.Controls.Button boxIncreaseBtn, System.Windows.Controls.Button resetBtn, System.Windows.Controls.Button saveBtn)
         {
-            var boxwidth = 0.0;
-            var boxheight = 0.0;
-            var plusbtnleft = 0.0;
-            var plusbtntop = 0.0;
-            var minusbtnleft = 0.0;
-            var minusbtntop = 0.0;
-            var resetbtnleft= 0.0;
-            var resetbtntop = 0.0;
-            var savebtnleft= 0.0;
-            var savebtntop= 0.0;
 
             var sql = "SELECT * FROM data";
             try
@@ -84,40 +74,40 @@ namespace HtmlEditor
                 connection.Open();
 
                 using var command = new SqliteCommand(sql, connection);
-
                 using var reader = command.ExecuteReader();
-                //int i = 1;
+
+                //lista desimaaliluvuille
+                List<Double> values = new List<Double>();
                 if (reader.HasRows)
                 {
                     while (reader.Read())
                     {
+                        //getdouble hakee kannasta desimaaliluvut suluissa olevan arvon perusteella
+                        //arvot alkaa luvusta 0, joka on tässä tapuksessa id-numero, joten annetaan
+                        //kierrosmuuttujalle aloitusarvoksi 1. haettavia arvoja on yhteensä 10
+                        //joten niin kauan kuin j on pienempi kuin 11, talletetaan values listaan
+                        //kierrosmuuttujan avulla kulloinenkin arvo.
+                        for (int j = 1; j < 11; j++)
+                        {
+                            values.Add(reader.GetDouble(j));
 
-                        //var id = reader.GetInt32(0);
-                        boxwidth = reader.GetDouble(1);
-                        boxheight = reader.GetDouble(2);
-                        plusbtnleft = reader.GetDouble(3);
-                        plusbtntop = reader.GetDouble(4);
-                        minusbtnleft= reader.GetDouble(5);
-                        minusbtntop = reader.GetDouble(6);
-                        resetbtnleft = reader.GetDouble(7);
-                        resetbtntop = reader.GetDouble(8);
-                        savebtnleft= reader.GetDouble(9);
-                        savebtntop= reader.GetDouble(10);
+                        }
+
+
 
                     }
-                    txtBox.Width = boxwidth;
-                    txtBox.Height = boxheight;
-                    boxIncreaseBtn.Margin = new System.Windows.Thickness(plusbtnleft, plusbtntop,0,0);
-                    boxDecreaseBtn.Margin = new System.Windows.Thickness(minusbtnleft, minusbtntop, 0, 0);
-                    resetBtn.Margin = new System.Windows.Thickness(resetbtnleft, resetbtntop, 0, 0);
-                    saveBtn.Margin = new System.Windows.Thickness(savebtnleft,savebtntop, 0, 0);
+                    txtBox.Width = values[0];
+                    txtBox.Height = values[1];
+                    boxIncreaseBtn.Margin = new System.Windows.Thickness(values[2], values[3], 0, 0);
+                    boxDecreaseBtn.Margin = new System.Windows.Thickness(values[4], values[5], 0, 0);
+                    resetBtn.Margin = new System.Windows.Thickness(values[6], values[7], 0, 0);
+                    saveBtn.Margin = new System.Windows.Thickness(values[8], values[9], 0, 0);
 
                 }
 
             }
             catch (SqliteException ex)
             {
-                Console.WriteLine(ex.Message);
                 MessageBox.Show(ex.Message.ToString());
             }
         }

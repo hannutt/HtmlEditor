@@ -33,7 +33,7 @@
         <Button x:Name="saveBtn" Content="Save template" HorizontalAlignment="Left" Margin="359,368,0,0" VerticalAlignment="Top" Click="saveBtn_Click"/>
         <Button x:Name="viewBtn" Content="Preview current" HorizontalAlignment="Left" Margin="501,194,0,0" VerticalAlignment="Top" Click="viewBtn_Click"/>
         <RadioButton x:Name="htmlRadio" Content="HTML Boilerbate" HorizontalAlignment="Left" Margin="203,30,0,0" VerticalAlignment="Top" Checked="htmlRadio_Checked"/>
-        <RadioButton x:Name="cssRadio" Content="CSS Boilerpate" HorizontalAlignment="Left" Margin="203,69,0,0" VerticalAlignment="Top" Click="cssRadio_Click"/>
+        <RadioButton x:Name="cssRadio" Content="CSS Boilerpate" HorizontalAlignment="Left" Margin="203,74,0,0" VerticalAlignment="Top" Click="cssRadio_Click"/>
         <CheckBox x:Name="autoCompCB" Content="Use AutoComplete" HorizontalAlignment="Left" Margin="203,119,0,0" VerticalAlignment="Top" Checked="autoCompCB_Checked" Unchecked="autoCompCB_Unchecked"/>
         <controls:AutoCompleteBox x:Name="acbox"  HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="43,153,0,0" Width="100" Visibility="Hidden"></controls:AutoCompleteBox>
         <Button x:Name="boxIncreaseBtn" Content="Size +" HorizontalAlignment="Left" Margin="359,188,0,0" VerticalAlignment="Top" Click="boxIncrease_Click" RenderTransformOrigin="-0.382,-0.048"/>
@@ -44,6 +44,7 @@
         <Label x:Name="sliderVal" Content="{Binding ElementName=previewSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="664,201,0,0" VerticalAlignment="Top"/>
         <CheckBox x:Name="openAnother" Content="Open another" HorizontalAlignment="Left" Margin="501,229,0,0" VerticalAlignment="Top" Checked="openAnother_Checked" />
         <Button x:Name="resetBtn" Content="Reset sizes" HorizontalAlignment="Left" Margin="356,268,0,0" VerticalAlignment="Top" Click="resetBtn_Click"/>
+        <RadioButton x:Name="htmlBsJquery" Content="HTML - BS5- jQuery" HorizontalAlignment="Left" Margin="203,54,0,0" VerticalAlignment="Top" Checked="htmlBsJquery_Checked"/>
     </Grid>
 
 
