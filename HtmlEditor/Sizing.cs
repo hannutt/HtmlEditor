@@ -29,7 +29,14 @@ namespace HtmlEditor
             get { return sizeBtnMinus; }
             set { sizeBtnMinus = value; }
         }
-        public void txtBoxBigger(System.Windows.Controls.TextBox txtBox, double txtBoxHeight, double txtBoxWidth, System.Windows.Controls.Button saveBtn, System.Windows.Controls.Button boxDecreaseBtn, System.Windows.Controls.Button boxIncreaseBtn)
+
+        private double resetBtnMargin;
+        public double ResetBtnMargin
+        {
+            get { return resetBtnMargin; }
+            set { resetBtnMargin = value; }
+        }
+        public void txtBoxBigger(System.Windows.Controls.TextBox txtBox, double txtBoxHeight, double txtBoxWidth, System.Windows.Controls.Button saveBtn, System.Windows.Controls.Button boxDecreaseBtn, System.Windows.Controls.Button boxIncreaseBtn, System.Windows.Controls.Button resetBtn)
         {
             txtBoxHeight += 5;
             txtBoxWidth += 5;
@@ -41,20 +48,25 @@ namespace HtmlEditor
             SaveBtnMarginLeft = saveBtn.Margin.Left;
             SizeBtnPlus = boxIncreaseBtn.Margin.Left;
             SizeBtnMinus = boxDecreaseBtn.Margin.Left;
+            ResetBtnMargin = resetBtn.Margin.Left;
             //kun txtboxin leveys on yli 330 pikseliä, siirretään savebuttonia 5 pikseliä vasemmalle.
             if (txtBoxWidth > 330)
             {
 
+                //kasvatetaan Margin left arvoja, eli tämäb avulla siirretään painikkeita vasemmall 5 px
+                //klikkaus
                 saveBtnMarginLeft += 5;
                 sizeBtnPlus += 5;
                 sizeBtnMinus += 5;
+                resetBtnMargin += 5;
                 saveBtn.Margin = new System.Windows.Thickness(saveBtnMarginLeft, saveBtn.Margin.Top, saveBtn.Margin.Right, saveBtn.Margin.Bottom);
                 boxDecreaseBtn.Margin = new System.Windows.Thickness(sizeBtnPlus, boxDecreaseBtn.Margin.Top, boxDecreaseBtn.Margin.Right, boxDecreaseBtn.Margin.Bottom);
                 boxIncreaseBtn.Margin = new System.Windows.Thickness(sizeBtnMinus, boxIncreaseBtn.Margin.Top, boxDecreaseBtn.Margin.Right, boxDecreaseBtn.Margin.Bottom);
+                resetBtn.Margin = new System.Windows.Thickness(resetBtnMargin, resetBtn.Margin.Top, resetBtn.Margin.Right, resetBtn.Margin.Bottom);
             }
         }
 
-        public void txtBoxSmaller(System.Windows.Controls.TextBox txtBox, double txtBoxHeight, double txtBoxWidth, System.Windows.Controls.Button saveBtn)
+        public void txtBoxSmaller(System.Windows.Controls.TextBox txtBox, double txtBoxHeight, double txtBoxWidth, System.Windows.Controls.Button saveBtn, System.Windows.Controls.Button boxDecreaseBtn, System.Windows.Controls.Button boxIncreaseBtn, System.Windows.Controls.Button resetBtn)
         {
             txtBoxHeight -= 5;
             txtBoxWidth -= 5;
@@ -67,8 +79,13 @@ namespace HtmlEditor
             if (txtBoxWidth < 330)
             {
                 saveBtnMarginLeft -= 5;
+                sizeBtnPlus -= 5;
+                sizeBtnMinus -= 5;
+                resetBtnMargin -= 5;
                 saveBtn.Margin = new System.Windows.Thickness(saveBtnMarginLeft, saveBtn.Margin.Top, saveBtn.Margin.Right, saveBtn.Margin.Bottom);
-
+                boxDecreaseBtn.Margin = new System.Windows.Thickness(sizeBtnPlus, boxDecreaseBtn.Margin.Top, boxDecreaseBtn.Margin.Right, boxDecreaseBtn.Margin.Bottom);
+                boxIncreaseBtn.Margin = new System.Windows.Thickness(sizeBtnMinus, boxIncreaseBtn.Margin.Top, boxDecreaseBtn.Margin.Right, boxDecreaseBtn.Margin.Bottom);
+                resetBtn.Margin = new System.Windows.Thickness(resetBtnMargin, resetBtn.Margin.Top, resetBtn.Margin.Right, resetBtn.Margin.Bottom);
             }
 
 

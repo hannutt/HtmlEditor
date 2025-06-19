@@ -224,7 +224,7 @@ namespace HtmlEditor
         {
             double txtBoxHeight = txtBox.Height;
             double txtBoxWidth = txtBox.Width;
-            sizing.txtBoxBigger(txtBox, txtBoxHeight, txtBoxWidth, saveBtn, boxDecreaseBtn, boxIncreaseBtn);
+            sizing.txtBoxBigger(txtBox, txtBoxHeight, txtBoxWidth, saveBtn, boxDecreaseBtn, boxIncreaseBtn, resetBtn);
 
 
         }
@@ -233,7 +233,7 @@ namespace HtmlEditor
         {
             double txtBoxHeight = txtBox.Height;
             double txtBoxWidth = txtBox.Width;
-            sizing.txtBoxSmaller(txtBox, txtBoxHeight, txtBoxWidth, saveBtn);
+            sizing.txtBoxSmaller(txtBox, txtBoxHeight, txtBoxWidth, saveBtn, boxDecreaseBtn,boxIncreaseBtn,resetBtn);
 
         }
 
@@ -291,12 +291,17 @@ namespace HtmlEditor
 
         private void saveValues_Selected(object sender, RoutedEventArgs e)
         {
-            dbconnection.connectToDbAndSave(txtBox.Width, txtBox.Height);
+            dbconnection.saveTxtBoxValues(txtBox.Width, txtBox.Height,boxDecreaseBtn.Margin,boxIncreaseBtn.Margin,resetBtn.Margin,saveBtn.Margin);
         }
 
         private void loadValues_Selected(object sender, RoutedEventArgs e)
         {
-            dbconnection.fetchDbData(txtBox);
+            dbconnection.fetchDbData(txtBox,boxDecreaseBtn,boxIncreaseBtn,resetBtn,saveBtn);
+        }
+
+        private void savePreviewValues_Selected(object sender, RoutedEventArgs e)
+        {
+            dbconnection.savePreViewValues(wbrow.Width,wbrow.Height);
         }
     }
 }

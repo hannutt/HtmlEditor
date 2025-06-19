@@ -21,16 +21,17 @@
             <ComboBoxItem x:Name="saveDialog" Content="Save File"/>
             <ComboBoxItem x:Name="italicFont" Content="Italic font" Selected="fontItalic_Selected"></ComboBoxItem>
             <ComboBoxItem x:Name="boldFont" Content="Bold Font"></ComboBoxItem>
-            <ComboBoxItem x:Name="saveValues" Content="Save width and height" Selected="saveValues_Selected"></ComboBoxItem>
-            <ComboBoxItem x:Name="loadValues" Content="Load width and height" Selected="loadValues_Selected"></ComboBoxItem>
+            <ComboBoxItem x:Name="saveValues" Content="Save textbox size" Selected="saveValues_Selected"></ComboBoxItem>
+            <ComboBoxItem x:Name="savePreviewValues" Content="Save preview win. size" Selected="savePreviewValues_Selected"></ComboBoxItem>
+            <ComboBoxItem x:Name="loadValues" Content="Load saved layout" Selected="loadValues_Selected"></ComboBoxItem>
         </ComboBox>
-        <WebBrowser x:Name="wbrow" HorizontalAlignment="Left" Height="131" Margin="505,257,0,0" VerticalAlignment="Top" Width="235" SnapsToDevicePixels="True"/>
+        <WebBrowser x:Name="wbrow" HorizontalAlignment="Left" Height="131" Margin="501,257,0,0" VerticalAlignment="Top" Width="235" SnapsToDevicePixels="True"/>
         <Button x:Name="tagBtn1" Content="&lt;p&gt;&lt;/p&gt;" HorizontalAlignment="Left" Margin="23,69,0,0" VerticalAlignment="Top" MouseMove="tagBtn1_MouseMove" Visibility="Hidden" />
         <Button x:Name="tagBtn2" Content="&lt;h1&gt;&lt;/h1&gt;" HorizontalAlignment="Left" Margin="103,69,0,0" VerticalAlignment="Top" MouseMove="tagBtn2_MouseMove" Visibility="Hidden"/>
         <TextBox x:Name="writeTag" HorizontalAlignment="Left" Margin="23,95,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" LostFocus="writeTag_LostFocus" Text="WRITE TAG HERE" />
         <Button x:Name="writedTag" Content="" HorizontalAlignment="Left" Margin="23,119,0,0" VerticalAlignment="Top" MouseMove="writedTag_MouseMove"/>
         <Button x:Name="saveBtn" Content="Save template" HorizontalAlignment="Left" Margin="359,368,0,0" VerticalAlignment="Top" Click="saveBtn_Click"/>
-        <Button x:Name="viewBtn" Content="Preview current" HorizontalAlignment="Left" Margin="505,193,0,0" VerticalAlignment="Top" Click="viewBtn_Click"/>
+        <Button x:Name="viewBtn" Content="Preview current" HorizontalAlignment="Left" Margin="501,194,0,0" VerticalAlignment="Top" Click="viewBtn_Click"/>
         <RadioButton x:Name="htmlRadio" Content="HTML Boilerbate" HorizontalAlignment="Left" Margin="203,30,0,0" VerticalAlignment="Top" Checked="htmlRadio_Checked"/>
         <RadioButton x:Name="cssRadio" Content="CSS Boilerpate" HorizontalAlignment="Left" Margin="203,69,0,0" VerticalAlignment="Top" Click="cssRadio_Click"/>
         <CheckBox x:Name="autoCompCB" Content="Use AutoComplete" HorizontalAlignment="Left" Margin="203,119,0,0" VerticalAlignment="Top" Checked="autoCompCB_Checked" Unchecked="autoCompCB_Unchecked"/>
@@ -38,10 +39,10 @@
         <Button x:Name="boxIncreaseBtn" Content="Size +" HorizontalAlignment="Left" Margin="359,188,0,0" VerticalAlignment="Top" Click="boxIncrease_Click" RenderTransformOrigin="-0.382,-0.048"/>
         <Button x:Name="boxDecreaseBtn" Content="Size -" HorizontalAlignment="Left" Margin="359,231,0,0" VerticalAlignment="Top" Click="boxDecrease_Click"/>
         <xctk:ColorPicker x:Name="ClrPcker" HorizontalAlignment="Left" VerticalAlignment="Top" Width="60" Height="20" Margin="23,159,0,255" SelectedColorChanged="ClrPcker_SelectedColorChanged"></xctk:ColorPicker>
-        <Slider x:Name="previewSlider" HorizontalAlignment="Left" Margin="657,193,0,0" VerticalAlignment="Top" Width="120" Minimum="200" ValueChanged="previewSlider_ValueChanged" Maximum="400"/>
+        <Slider x:Name="previewSlider" HorizontalAlignment="Left" Margin="633,229,0,0" VerticalAlignment="Top" Width="120" Minimum="200" ValueChanged="previewSlider_ValueChanged" Maximum="400"/>
         <!-- labelin bindaus slider valuen lanssa -->
-        <Label x:Name="sliderVal" Content="{Binding ElementName=previewSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="715,204,0,0" VerticalAlignment="Top"/>
-        <CheckBox x:Name="openAnother" Content="Open another" HorizontalAlignment="Left" Margin="505,231,0,0" VerticalAlignment="Top" Checked="openAnother_Checked" />
+        <Label x:Name="sliderVal" Content="{Binding ElementName=previewSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="664,201,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="openAnother" Content="Open another" HorizontalAlignment="Left" Margin="501,229,0,0" VerticalAlignment="Top" Checked="openAnother_Checked" />
         <Button x:Name="resetBtn" Content="Reset sizes" HorizontalAlignment="Left" Margin="356,268,0,0" VerticalAlignment="Top" Click="resetBtn_Click"/>
     </Grid>
 
