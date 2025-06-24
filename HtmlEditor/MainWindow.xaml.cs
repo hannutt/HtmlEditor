@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Printing;
 using System.Text;
+using System.Threading.Channels;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -11,6 +12,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Media.TextFormatting;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using static System.Net.Mime.MediaTypeNames;
@@ -46,24 +48,21 @@ namespace HtmlEditor
         FontSetups fontSetups = new FontSetups();
         Sizing sizing = new Sizing();
         DBconnection dbconnection = new DBconnection();
+        DgDebug dgd = new DgDebug();
+        List<DgDebug> debugList = new List<DgDebug>();
 
         public MainWindow()
         {
 
 
             InitializeComponent();
+            setDgFields();
             string path = Directory.GetCurrentDirectory();
 
             //luetaan tekstitiedoston sisältö htmltags listaan.
             List<string> htmlTags = System.IO.File.ReadLines("C:\\Users\\Omistaja\\source\\repos\\hannutt\\HtmlEditor\\HtmlEditor\\assets\\htmltags.txt").ToList();
-
             acbox.ItemsSource = htmlTags;
-
-
-
         }
-
-
         //mahdollistaa raahattavan elementin Content propertyn pudottamisen tekstikenttään.
         private void txtBox_Drop(object sender, DragEventArgs e)
         {
@@ -184,7 +183,7 @@ namespace HtmlEditor
         {
 
             /* \r\n + välilyönneillä saa tekstin sisennettyä*/
-            
+
             string boilerPlate = "<!DOCTYPE html>\r\n<html>\r\n<head>\r\n  <link rel=\"stylesheet\"href=\"https://\r\n    maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/\r\n    bootstrap.min.css/>\r\n  <script src=\"https://ajax.googleapis.com/ajax/libs/\r\n    jquery/3.7.1/jquery.min.js></script>\r\n    <script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js>\r\n</script>\r\n<link rel=\"stylesheet\" href=\"styles.css\"> \r\n<title>Page Title</title>\r\n</head>\r\n\r\n<body>\r\n    <h2>Welcome</h2>\r\n</body>\r\n\r\n</html>";
 
             txtBox.AppendText(boilerPlate);
@@ -243,7 +242,7 @@ namespace HtmlEditor
         {
             double txtBoxHeight = txtBox.Height;
             double txtBoxWidth = txtBox.Width;
-            sizing.txtBoxSmaller(txtBox, txtBoxHeight, txtBoxWidth, saveBtn, boxDecreaseBtn,boxIncreaseBtn,resetBtn);
+            sizing.txtBoxSmaller(txtBox, txtBoxHeight, txtBoxWidth, saveBtn, boxDecreaseBtn, boxIncreaseBtn, resetBtn);
 
         }
 
@@ -264,16 +263,26 @@ namespace HtmlEditor
                 //näppäin ilman controllia.
                 if (Keyboard.Modifiers == ModifierKeys.Control && e.Key == keys[i])
                 {
+
                     txtBox.Text = txtBox.Text.Insert(txtBox.CaretIndex, "<" + e.Key.ToString().ToLower() + ">" + "</" + e.Key.ToString().ToLower() + ">");
 
-                }
-                /*
-                else if (Keyboard.Modifiers == ModifierKeys.Shift && e.Key == keys[i] && Keyboard.IsKeyDown(keys[i]))
-                {
-                    txtBox.Text = txtBox.Text.Insert(txtBox.CaretIndex, "<" +Keyboard.IsKeyDown+ e.Key.ToString().ToLower() + ">" + "</" + e.Key.ToString().ToLower() + e.Key.ToString().ToLower() + ">");
+                    //lisätään DgDebug luokan Tag ja Added propertyihin arvot
+                    debugList.Add(new DgDebug() { Tag = "<" + e.Key.ToString().ToLower() + "> </" + e.Key.ToString().ToLower() + ">", Added = DateTime.Now.ToString() });
+                    addToDataGrid();
 
-                }*/
+
+                }
+
             }
+        }
+        private void addToDataGrid()
+        {
+
+            foreach (DgDebug d in debugList)
+            {
+                debugdg.Items.Add(d);
+            }
+            debugList.Clear();
         }
 
         private void ClrPcker_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
@@ -301,19 +310,36 @@ namespace HtmlEditor
 
         private void saveValues_Selected(object sender, RoutedEventArgs e)
         {
-            dbconnection.saveTxtBoxValues(txtBox.Width, txtBox.Height,boxDecreaseBtn.Margin,boxIncreaseBtn.Margin,resetBtn.Margin,saveBtn.Margin);
+            dbconnection.saveTxtBoxValues(txtBox.Width, txtBox.Height, boxDecreaseBtn.Margin, boxIncreaseBtn.Margin, resetBtn.Margin, saveBtn.Margin);
         }
 
         private void loadValues_Selected(object sender, RoutedEventArgs e)
         {
-            dbconnection.fetchDbData(txtBox,boxDecreaseBtn,boxIncreaseBtn,resetBtn,saveBtn);
+            dbconnection.fetchDbData(txtBox, boxDecreaseBtn, boxIncreaseBtn, resetBtn, saveBtn);
         }
 
         private void savePreviewValues_Selected(object sender, RoutedEventArgs e)
         {
-            dbconnection.savePreViewValues(wbrow.Width,wbrow.Height);
+            dbconnection.savePreViewValues(wbrow.Width, wbrow.Height);
         }
 
-       
+        private void setDgFields()
+        {
+            DataGridTextColumn TextColAdded = new DataGridTextColumn();
+            DataGridTextColumn TextColTag = new DataGridTextColumn();
+
+            //bindaus, eli määritellään missä sarakkeessa näytetään DgDebug luokan
+            //Added ja Tag propertyihin talletetut arvot.
+            TextColAdded.Binding = new Binding("Added");
+            //sarakkeen otsikko
+            TextColAdded.Header = "Added";
+            TextColTag.Binding = new Binding("Tag");
+            TextColTag.Header = "Tag";
+
+            debugdg.Columns.Add(TextColAdded);
+            debugdg.Columns.Add(TextColTag);
+        }
+
+
     }
 }

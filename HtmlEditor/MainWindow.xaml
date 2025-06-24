@@ -45,6 +45,16 @@
         <CheckBox x:Name="openAnother" Content="Open another" HorizontalAlignment="Left" Margin="501,229,0,0" VerticalAlignment="Top" Checked="openAnother_Checked" />
         <Button x:Name="resetBtn" Content="Reset sizes" HorizontalAlignment="Left" Margin="356,268,0,0" VerticalAlignment="Top" Click="resetBtn_Click"/>
         <RadioButton x:Name="htmlBsJquery" Content="HTML - BS5- jQuery" HorizontalAlignment="Left" Margin="203,54,0,0" VerticalAlignment="Top" Checked="htmlBsJquery_Checked"/>
+        <DataGrid x:Name="debugdg"  Margin="527,3,13,264" RenderTransformOrigin="0.5,0.5">
+            <DataGrid.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-0.264"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </DataGrid.RenderTransform>
+        </DataGrid>
     </Grid>
 
 
