@@ -8,15 +8,17 @@ Users can also create their own HTML elements by typing them into the TextField 
 
 HTML TAGS SHORTCUTS
 
-For now, the application supports adding single-letter HTML tags using keyboard shortcuts.
-For example, Control+p will add a p tag to the position in the editing view where the cursor is. The application determines the cursor position using the CaretIndex property in C#.
-(https://learn.microsoft.com/en-us/dotnet/api/system.windows.controls.textbox.caretindex?view=windowsdesktop-9.0). Keyboard bindings are done with C# WPF KeyDown events.
+The application supports adding HTML tags using keyboard shortcuts.
+Single-character tags can be added using the key combination Ctrl + the letter of the tag.
+For example, Ctrl+P adds a p tag to the position where the cursor is in the editing view.
+Multi-character tags are added using the key combination Shift + the first letter of the tag. For example, Shift + D adds a div tag.
+
+The application determines the cursor position using the CaretIndex property of C#.
+(https://learn.microsoft.com/en-us/dotnet/api/system.windows.controls.textbox.caretindex?view=windowsdesktop-9.0). Keyboard bindings are done using the WPF KeyDown events of C#.
 
 AUTOCOMPLETE TEXT
 
-The user can also utilize automatic text completion when writing html tags. This feature can be enabled by clicking the checkbox.
-When the feature is selected, the application's UI displays an autocomplete box element to the user. The autocomplete functionality
-is implemented using the DotNetProjects.WpfToolkit.Input library. (https://www.nuget.org/packages/DotNetProjects.WpfToolkit.Input/).
+The user can also utilize automatic text completion when writing html tags. This feature can be enabled by clicking the checkbox. When the feature is selected, the application's UI displays an autocomplete box element to the user. The autocomplete functionality is implemented using the DotNetProjects.WpfToolkit.Input library. (https://www.nuget.org/packages/DotNetProjects.WpfToolkit.Input/).
 The suggested HTML tags are loaded from a text file used by the application based on the user's input.
 
 Example image of the auto-fill feature in use

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Printing;
 using System.Text;
@@ -45,11 +46,14 @@ namespace HtmlEditor
         public int CaretIndex;
 
 
+
+
         FontSetups fontSetups = new FontSetups();
         Sizing sizing = new Sizing();
         DBconnection dbconnection = new DBconnection();
         DgDebug dgd = new DgDebug();
         List<DgDebug> debugList = new List<DgDebug>();
+        public int count = 0;
 
         public MainWindow()
         {
@@ -63,13 +67,11 @@ namespace HtmlEditor
             List<string> htmlTags = System.IO.File.ReadLines("C:\\Users\\Omistaja\\source\\repos\\hannutt\\HtmlEditor\\HtmlEditor\\assets\\htmltags.txt").ToList();
             acbox.ItemsSource = htmlTags;
         }
-        //mahdollistaa raahattavan elementin Content propertyn pudottamisen tekstikenttään.
+        //mahdollistaa raahattavan elementin sisällön pudottamisen tekstikenttään.
         private void txtBox_Drop(object sender, DragEventArgs e)
         {
-            //Point dropPosition = e.GetPosition(txtBox);
-            txtBox.AppendText((string)tagBtn1.Content);
-            txtBox.AppendText((string)tagBtn2.Content);
-            txtBox.AppendText((string)writedTag.Content);
+
+            txtBox.AppendText(e.Data.ToString());
 
         }
 
@@ -96,7 +98,7 @@ namespace HtmlEditor
         {
             DragDrop.DoDragDrop(tagBtn2, tagBtn2.Content, DragDropEffects.Move);
         }
-
+        //lost focus eli kun kursori poistuu kentästä
         private void writeTag_LostFocus(object sender, RoutedEventArgs e)
         {
             string tag = writeTag.Text;
@@ -248,32 +250,54 @@ namespace HtmlEditor
 
         private void txtBox_KeyDown(object sender, KeyEventArgs e)
         {
-            List<Key> keys = new List<Key>();
-            keys.Add(Key.P);
-            keys.Add(Key.A);
-            keys.Add(Key.B);
-            keys.Add(Key.U);
-            keys.Add(Key.I);
-            keys.Add(Key.L);
+            List<Key> tagsWithOneChar = new List<Key>();
+            tagsWithOneChar.Add(Key.P);
+            tagsWithOneChar.Add(Key.A);
+            tagsWithOneChar.Add(Key.B);
+            tagsWithOneChar.Add(Key.U);
+            tagsWithOneChar.Add(Key.I);
+
 
             //listan läpikäynti, jokainen listan alkio on i muuttujassa, count on sama kuin length string listassa
-            for (int i = 0; i < keys.Count; i++)
+            for (int i = 0; i < tagsWithOneChar.Count; i++)
             {
                 //jos control + listalla oleva näppäin on painettu tulostetaa tekstilaatikko painettu
                 //näppäin ilman controllia.
-                if (Keyboard.Modifiers == ModifierKeys.Control && e.Key == keys[i])
+                if (Keyboard.Modifiers == ModifierKeys.Control && e.Key == tagsWithOneChar[i])
                 {
-
-                    txtBox.Text = txtBox.Text.Insert(txtBox.CaretIndex, "<" + e.Key.ToString().ToLower() + ">" + "</" + e.Key.ToString().ToLower() + ">");
+                    count += 1;
+                    txtBox.Text = txtBox.Text.Insert(txtBox.CaretIndex, "<" + e.Key.ToString().ToLower() + " id= class=" + ">" + "</" + e.Key.ToString().ToLower() + ">");
 
                     //lisätään DgDebug luokan Tag ja Added propertyihin arvot
-                    debugList.Add(new DgDebug() { Tag = "<" + e.Key.ToString().ToLower() + "> </" + e.Key.ToString().ToLower() + ">", Added = DateTime.Now.ToString() });
+                    debugList.Add(new DgDebug() { Tag = "<" + e.Key.ToString().ToLower() + "> </" + e.Key.ToString().ToLower() + ">", Added = DateTime.Now.ToString(), Order = count });
                     addToDataGrid();
-
 
                 }
 
+
             }
+
+
+        }
+        private void txtBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            Dictionary<Key, string> tagsWithTwoOrMoreChar = new Dictionary<Key, string>();
+            tagsWithTwoOrMoreChar.Add(Key.L, "<li></li>");
+            tagsWithTwoOrMoreChar.Add(Key.O, "<ol></ol>");
+            tagsWithTwoOrMoreChar.Add(Key.D, "<div></div>");
+            tagsWithTwoOrMoreChar.Add(Key.U, "<ul></ul>");
+            //tarkistus dicrionary oliosta, eli control + dictionaryn avain (esim ctrl+d lisää textboksiin
+            //<div></div> tagin.
+            if (Keyboard.Modifiers == ModifierKeys.Shift && tagsWithTwoOrMoreChar.ContainsKey(e.Key))
+            {
+              
+                count += 1;
+                txtBox.Text = txtBox.Text.Insert(txtBox.CaretIndex, tagsWithTwoOrMoreChar[e.Key]);
+                debugList.Add(new DgDebug() { Tag = tagsWithTwoOrMoreChar[e.Key], Added = DateTime.Now.ToString(), Order = count });
+                addToDataGrid();
+            }
+
+
         }
         private void addToDataGrid()
         {
@@ -288,6 +312,7 @@ namespace HtmlEditor
         private void ClrPcker_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
         {
             txtBox.Text = txtBox.Text.Insert(txtBox.CaretIndex, "#" + ClrPcker.SelectedColor.ToString());
+
         }
 
         private void previewSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -327,6 +352,7 @@ namespace HtmlEditor
         {
             DataGridTextColumn TextColAdded = new DataGridTextColumn();
             DataGridTextColumn TextColTag = new DataGridTextColumn();
+            DataGridTextColumn TextColOrder = new DataGridTextColumn();
 
             //bindaus, eli määritellään missä sarakkeessa näytetään DgDebug luokan
             //Added ja Tag propertyihin talletetut arvot.
@@ -335,7 +361,10 @@ namespace HtmlEditor
             TextColAdded.Header = "Added";
             TextColTag.Binding = new Binding("Tag");
             TextColTag.Header = "Tag";
+            TextColOrder.Binding = new Binding("Order");
+            TextColOrder.Header = "Order";
 
+            debugdg.Columns.Add(TextColOrder);
             debugdg.Columns.Add(TextColAdded);
             debugdg.Columns.Add(TextColTag);
         }

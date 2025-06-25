@@ -13,6 +13,8 @@ namespace HtmlEditor
 
         public string Added { get; set; }
 
+        public int Order { get; set; }
+
 
     }
 }
