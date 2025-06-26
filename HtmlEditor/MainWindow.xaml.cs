@@ -38,12 +38,16 @@ namespace HtmlEditor
         }
         private bool openFileDialog;
 
+        private bool createAttr = false;
+
         public bool OpenFileDialog
         {
             get { return openFileDialog; }
             set { openFileDialog = value; }
         }
         public int CaretIndex;
+
+        public int attrCount = 1;
 
 
 
@@ -263,10 +267,20 @@ namespace HtmlEditor
             {
                 //jos control + listalla oleva näppäin on painettu tulostetaa tekstilaatikko painettu
                 //näppäin ilman controllia.
-                if (Keyboard.Modifiers == ModifierKeys.Control && e.Key == tagsWithOneChar[i])
+                if (Keyboard.Modifiers == ModifierKeys.Control && e.Key == tagsWithOneChar[i] && createAttr)
                 {
                     count += 1;
-                    txtBox.Text = txtBox.Text.Insert(txtBox.CaretIndex, "<" + e.Key.ToString().ToLower() + " id= class=" + ">" + "</" + e.Key.ToString().ToLower() + ">");
+                    txtBox.Text = txtBox.Text.Insert(txtBox.CaretIndex, "<" + e.Key.ToString().ToLower() + " id='yourId" + count + "'" + " class='yourClass" + count + "'" + ">" + "</" + e.Key.ToString().ToLower() + ">");
+
+                    //lisätään DgDebug luokan Tag ja Added propertyihin arvot
+                    debugList.Add(new DgDebug() { Tag = "<" + e.Key.ToString().ToLower() + "> </" + e.Key.ToString().ToLower() + ">", Added = DateTime.Now.ToString(), Order = count });
+                    addToDataGrid();
+
+                }
+                else if (Keyboard.Modifiers == ModifierKeys.Control && e.Key == tagsWithOneChar[i])
+                {
+                    count += 1;
+                    txtBox.Text = txtBox.Text.Insert(txtBox.CaretIndex, "<" + e.Key.ToString().ToLower() + ">" + "</" + e.Key.ToString().ToLower() + ">");
 
                     //lisätään DgDebug luokan Tag ja Added propertyihin arvot
                     debugList.Add(new DgDebug() { Tag = "<" + e.Key.ToString().ToLower() + "> </" + e.Key.ToString().ToLower() + ">", Added = DateTime.Now.ToString(), Order = count });
@@ -281,24 +295,40 @@ namespace HtmlEditor
         }
         private void txtBox_KeyUp(object sender, KeyEventArgs e)
         {
-            Dictionary<Key, string> tagsWithTwoOrMoreChar = new Dictionary<Key, string>();
-            tagsWithTwoOrMoreChar.Add(Key.L, "<li></li>");
-            tagsWithTwoOrMoreChar.Add(Key.O, "<ol></ol>");
-            tagsWithTwoOrMoreChar.Add(Key.D, "<div></div>");
-            tagsWithTwoOrMoreChar.Add(Key.U, "<ul></ul>");
-            //tarkistus dicrionary oliosta, eli control + dictionaryn avain (esim ctrl+d lisää textboksiin
-            //<div></div> tagin.
-            if (Keyboard.Modifiers == ModifierKeys.Shift && tagsWithTwoOrMoreChar.ContainsKey(e.Key))
+
+            Dictionary<Key, string> tagsWithAttributes = new Dictionary<Key, string>();
+            tagsWithAttributes.Add(Key.L, "<li id='yourLIiD" + attrCount +"'"+ "class='yourClass'></li>");
+            tagsWithAttributes.Add(Key.O, "<ol id='yourOLiD" + attrCount +"'"+ "class='yourClass'></ol>");
+            tagsWithAttributes.Add(Key.D, "<div id='yourDivID" + attrCount +"'"+ "class='yourClass'></div>");
+            tagsWithAttributes.Add(Key.U, "<ul id='yourULiD" + attrCount +"'" +"class='yourClass'></ul>");
+            tagsWithAttributes.Add(Key.B, "<button yourButtonID" + attrCount + "'" + "class='yourClass'></button>");
+
+            Dictionary<Key, string> tagsWithoutAttributes = new Dictionary<Key, string>();
+            tagsWithoutAttributes.Add(Key.L, "<li></li>");
+            tagsWithoutAttributes.Add(Key.O, "<ol></ol>");
+            tagsWithoutAttributes.Add(Key.D, "<div></div>");
+            tagsWithoutAttributes.Add(Key.U, "<ul></ul>");
+            tagsWithoutAttributes.Add(Key.B, "<button></button>");
+
+            count += 1;
+            if (createAttr && Keyboard.Modifiers == ModifierKeys.Shift && tagsWithAttributes.ContainsKey(e.Key))
             {
-              
-                count += 1;
-                txtBox.Text = txtBox.Text.Insert(txtBox.CaretIndex, tagsWithTwoOrMoreChar[e.Key]);
-                debugList.Add(new DgDebug() { Tag = tagsWithTwoOrMoreChar[e.Key], Added = DateTime.Now.ToString(), Order = count });
+                attrCount += 1;
+                txtBox.Text = txtBox.Text.Insert(txtBox.CaretIndex, tagsWithAttributes[e.Key]);
+                debugList.Add(new DgDebug() { Tag = tagsWithAttributes[e.Key], Added = DateTime.Now.ToString(), Order = count });
+                addToDataGrid();
+
+            }
+            else if (Keyboard.Modifiers == ModifierKeys.Shift && tagsWithoutAttributes.ContainsKey(e.Key))
+            {
+                txtBox.Text = txtBox.Text.Insert(txtBox.CaretIndex, tagsWithoutAttributes[e.Key]);
+                debugList.Add(new DgDebug() { Tag = tagsWithoutAttributes[e.Key], Added = DateTime.Now.ToString(), Order = count });
                 addToDataGrid();
             }
-
-
         }
+      
+
+   
         private void addToDataGrid()
         {
 
@@ -369,6 +399,15 @@ namespace HtmlEditor
             debugdg.Columns.Add(TextColTag);
         }
 
+        private void createAttributes_Checked(object sender, RoutedEventArgs e)
+        {
+            createAttr = true;
 
+        }
+
+        private void createAttributes_Unchecked(object sender, RoutedEventArgs e)
+        {
+            createAttr = false;
+        }
     }
 }

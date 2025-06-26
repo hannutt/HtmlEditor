@@ -16,6 +16,10 @@ Multi-character tags are added using the key combination Shift + the first lette
 The application determines the cursor position using the CaretIndex property of C#.
 (https://learn.microsoft.com/en-us/dotnet/api/system.windows.controls.textbox.caretindex?view=windowsdesktop-9.0). Keyboard bindings are done using the WPF KeyDown events of C#.
 
+AUTOMATIC CREATION OF HTML ATTRIBUTES
+
+The user can select the "Create ID and class attributes" checkbox if they want id, class, and name attributes to be automatically created for HTML tags. The automatically created attributes are in the format YourID1, YourID2, etc. The variable number at the end of the attribute name ensures that each html id is unique.
+
 AUTOCOMPLETE TEXT
 
 The user can also utilize automatic text completion when writing html tags. This feature can be enabled by clicking the checkbox. When the feature is selected, the application's UI displays an autocomplete box element to the user. The autocomplete functionality is implemented using the DotNetProjects.WpfToolkit.Input library. (https://www.nuget.org/packages/DotNetProjects.WpfToolkit.Input/).

@@ -13,10 +13,14 @@
         <ImageBrush ImageSource="/images/bgMedium.jpg"></ImageBrush>
     </Window.Background>
     <Grid KeyDown="Grid_KeyDown">
-        <TextBox x:Name="txtBox" HorizontalAlignment="Left" Margin="23,188,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="320" Height="200" Background="#FFB9B9B9" AllowDrop="True" Drop="txtBox_Drop" AcceptsReturn="True" KeyDown="txtBox_KeyDown" KeyUp="txtBox_KeyUp"/>
-        <Image x:Name="titleImage" HorizontalAlignment="Left" Height="100" Margin="359,34,0,0" VerticalAlignment="Top" Width="100" Source="/images/html64px.png"/>
-        <Label x:Name="titleLbl" Content="EDITOR" HorizontalAlignment="Left" Margin="371,149,0,0" VerticalAlignment="Top" Width="88" FontFamily="Arial Black" FontSize="14"/>
-        <ComboBox x:Name="Cbox" HorizontalAlignment="Left" Margin="23,23,0,0" VerticalAlignment="Top" Width="120">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="9*"/>
+            <ColumnDefinition Width="191*"/>
+        </Grid.ColumnDefinitions>
+        <TextBox x:Name="txtBox" HorizontalAlignment="Left" Margin="23,188,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="320" Height="200" Background="#FFB9B9B9" AllowDrop="True" Drop="txtBox_Drop" AcceptsReturn="True" KeyDown="txtBox_KeyDown" KeyUp="txtBox_KeyUp" Grid.ColumnSpan="2"/>
+        <Image x:Name="titleImage" HorizontalAlignment="Left" Height="100" Margin="323,34,0,0" VerticalAlignment="Top" Width="100" Source="/images/html64px.png" Grid.Column="1"/>
+        <Label x:Name="titleLbl" Content="EDITOR" HorizontalAlignment="Left" Margin="335,149,0,0" VerticalAlignment="Top" Width="88" FontFamily="Arial Black" FontSize="14" Grid.Column="1"/>
+        <ComboBox x:Name="Cbox" HorizontalAlignment="Left" Margin="23,23,0,0" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2">
             <ComboBoxItem x:Name="fDialog" Content="Open File" Selected="fDialog_Selected"/>
             <ComboBoxItem x:Name="saveDialog" Content="Save File"/>
             <ComboBoxItem x:Name="italicFont" Content="Italic font" Selected="fontItalic_Selected"></ComboBoxItem>
@@ -25,27 +29,27 @@
             <ComboBoxItem x:Name="savePreviewValues" Content="Save preview win. size" Selected="savePreviewValues_Selected"></ComboBoxItem>
             <ComboBoxItem x:Name="loadValues" Content="Load saved layout" Selected="loadValues_Selected"></ComboBoxItem>
         </ComboBox>
-        <WebBrowser x:Name="wbrow" HorizontalAlignment="Left" Height="131" Margin="501,257,0,0" VerticalAlignment="Top" Width="235" SnapsToDevicePixels="True"/>
-        <Button x:Name="tagBtn1" Content="&lt;p&gt;&lt;/p&gt;" HorizontalAlignment="Left" Margin="23,69,0,0" VerticalAlignment="Top" MouseMove="tagBtn1_MouseMove" Visibility="Hidden" />
-        <Button x:Name="tagBtn2" Content="&lt;h1&gt;&lt;/h1&gt;" HorizontalAlignment="Left" Margin="103,69,0,0" VerticalAlignment="Top" MouseMove="tagBtn2_MouseMove" Visibility="Hidden"/>
-        <TextBox x:Name="writeTag" HorizontalAlignment="Left" Margin="23,95,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" LostFocus="writeTag_LostFocus" Text="WRITE TAG HERE" />
+        <WebBrowser x:Name="wbrow" HorizontalAlignment="Left" Height="131" Margin="465,257,0,0" VerticalAlignment="Top" Width="235" SnapsToDevicePixels="True" Grid.Column="1"/>
+        <Button x:Name="tagBtn1" Content="&lt;p&gt;&lt;/p&gt;" HorizontalAlignment="Left" Margin="23,69,0,0" VerticalAlignment="Top" MouseMove="tagBtn1_MouseMove" Visibility="Hidden" Grid.ColumnSpan="2" />
+        <Button x:Name="tagBtn2" Content="&lt;h1&gt;&lt;/h1&gt;" HorizontalAlignment="Left" Margin="67,69,0,0" VerticalAlignment="Top" MouseMove="tagBtn2_MouseMove" Visibility="Hidden" Grid.Column="1"/>
+        <TextBox x:Name="writeTag" HorizontalAlignment="Left" Margin="23,95,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" LostFocus="writeTag_LostFocus" Text="WRITE TAG HERE" Grid.ColumnSpan="2" />
         <Button x:Name="writedTag" Content="" HorizontalAlignment="Left" Margin="23,119,0,0" VerticalAlignment="Top" MouseMove="writedTag_MouseMove"/>
-        <Button x:Name="saveBtn" Content="Save template" HorizontalAlignment="Left" Margin="359,368,0,0" VerticalAlignment="Top" Click="saveBtn_Click"/>
-        <Button x:Name="viewBtn" Content="Preview current" HorizontalAlignment="Left" Margin="501,194,0,0" VerticalAlignment="Top" Click="viewBtn_Click"/>
-        <RadioButton x:Name="htmlRadio" Content="HTML Boilerbate" HorizontalAlignment="Left" Margin="203,30,0,0" VerticalAlignment="Top" Checked="htmlRadio_Checked"/>
-        <RadioButton x:Name="cssRadio" Content="CSS Boilerpate" HorizontalAlignment="Left" Margin="203,74,0,0" VerticalAlignment="Top" Click="cssRadio_Click"/>
-        <CheckBox x:Name="autoCompCB" Content="Use AutoComplete" HorizontalAlignment="Left" Margin="203,119,0,0" VerticalAlignment="Top" Checked="autoCompCB_Checked" Unchecked="autoCompCB_Unchecked"/>
-        <controls:AutoCompleteBox x:Name="acbox"  HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="43,153,0,0" Width="100" Visibility="Hidden"></controls:AutoCompleteBox>
-        <Button x:Name="boxIncreaseBtn" Content="Size +" HorizontalAlignment="Left" Margin="359,188,0,0" VerticalAlignment="Top" Click="boxIncrease_Click" RenderTransformOrigin="-0.382,-0.048"/>
-        <Button x:Name="boxDecreaseBtn" Content="Size -" HorizontalAlignment="Left" Margin="359,231,0,0" VerticalAlignment="Top" Click="boxDecrease_Click"/>
-        <xctk:ColorPicker x:Name="ClrPcker" HorizontalAlignment="Left" VerticalAlignment="Top" Width="60" Height="20" Margin="23,159,0,255" SelectedColorChanged="ClrPcker_SelectedColorChanged"></xctk:ColorPicker>
-        <Slider x:Name="previewSlider" HorizontalAlignment="Left" Margin="633,229,0,0" VerticalAlignment="Top" Width="120" Minimum="200" ValueChanged="previewSlider_ValueChanged" Maximum="400"/>
+        <Button x:Name="saveBtn" Content="Save template" HorizontalAlignment="Left" Margin="323,368,0,0" VerticalAlignment="Top" Click="saveBtn_Click" Grid.Column="1"/>
+        <Button x:Name="viewBtn" Content="Preview current" HorizontalAlignment="Left" Margin="465,194,0,0" VerticalAlignment="Top" Click="viewBtn_Click" Grid.Column="1"/>
+        <RadioButton x:Name="htmlRadio" Content="HTML Boilerbate" HorizontalAlignment="Left" Margin="167,30,0,0" VerticalAlignment="Top" Checked="htmlRadio_Checked" Grid.Column="1"/>
+        <RadioButton x:Name="cssRadio" Content="CSS Boilerpate" HorizontalAlignment="Left" Margin="167,74,0,0" VerticalAlignment="Top" Click="cssRadio_Click" Grid.Column="1"/>
+        <CheckBox x:Name="autoCompCB" Content="Use AutoComplete" HorizontalAlignment="Left" Margin="167,119,0,0" VerticalAlignment="Top" Checked="autoCompCB_Checked" Unchecked="autoCompCB_Unchecked" Grid.Column="1"/>
+        <controls:AutoCompleteBox x:Name="acbox"  HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="7,153,0,0" Width="100" Visibility="Hidden" Grid.Column="1"></controls:AutoCompleteBox>
+        <Button x:Name="boxIncreaseBtn" Content="Size +" HorizontalAlignment="Left" Margin="323,188,0,0" VerticalAlignment="Top" Click="boxIncrease_Click" RenderTransformOrigin="-0.382,-0.048" Grid.Column="1"/>
+        <Button x:Name="boxDecreaseBtn" Content="Size -" HorizontalAlignment="Left" Margin="323,231,0,0" VerticalAlignment="Top" Click="boxDecrease_Click" Grid.Column="1"/>
+        <xctk:ColorPicker x:Name="ClrPcker" HorizontalAlignment="Left" VerticalAlignment="Top" Width="60" Height="20" Margin="23,159,0,0" SelectedColorChanged="ClrPcker_SelectedColorChanged" Grid.ColumnSpan="2"></xctk:ColorPicker>
+        <Slider x:Name="previewSlider" HorizontalAlignment="Left" Margin="597,229,0,0" VerticalAlignment="Top" Width="120" Minimum="200" ValueChanged="previewSlider_ValueChanged" Maximum="400" Grid.Column="1"/>
         <!-- labelin bindaus slider valuen lanssa -->
-        <Label x:Name="sliderVal" Content="{Binding ElementName=previewSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="664,201,0,0" VerticalAlignment="Top"/>
-        <CheckBox x:Name="openAnother" Content="Open another" HorizontalAlignment="Left" Margin="501,229,0,0" VerticalAlignment="Top" Checked="openAnother_Checked" />
-        <Button x:Name="resetBtn" Content="Reset sizes" HorizontalAlignment="Left" Margin="356,268,0,0" VerticalAlignment="Top" Click="resetBtn_Click"/>
-        <RadioButton x:Name="htmlBsJquery" Content="HTML - BS5- jQuery" HorizontalAlignment="Left" Margin="203,54,0,0" VerticalAlignment="Top" Checked="htmlBsJquery_Checked"/>
-        <DataGrid x:Name="debugdg"  Margin="527,3,13,264" RenderTransformOrigin="0.5,0.5">
+        <Label x:Name="sliderVal" Content="{Binding ElementName=previewSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="628,201,0,0" VerticalAlignment="Top" Grid.Column="1"/>
+        <CheckBox x:Name="openAnother" Content="Open another" HorizontalAlignment="Left" Margin="465,229,0,0" VerticalAlignment="Top" Checked="openAnother_Checked" Grid.Column="1" />
+        <Button x:Name="resetBtn" Content="Reset sizes" HorizontalAlignment="Left" Margin="320,268,0,0" VerticalAlignment="Top" Click="resetBtn_Click" Grid.Column="1"/>
+        <RadioButton x:Name="htmlBsJquery" Content="HTML - BS5- jQuery" HorizontalAlignment="Left" Margin="167,54,0,0" VerticalAlignment="Top" Checked="htmlBsJquery_Checked" Grid.Column="1"/>
+        <DataGrid x:Name="debugdg"  Margin="491,3,13,330" RenderTransformOrigin="0.5,0.5" Grid.Column="1">
             <DataGrid.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -55,6 +59,7 @@
                 </TransformGroup>
             </DataGrid.RenderTransform>
         </DataGrid>
+        <CheckBox x:Name="createAttributes" Grid.Column="1" Content="Create id &amp; class att." HorizontalAlignment="Left" Margin="167,168,0,0" VerticalAlignment="Top" Checked="createAttributes_Checked" Unchecked="createAttributes_Unchecked"/>
     </Grid>
 
 
