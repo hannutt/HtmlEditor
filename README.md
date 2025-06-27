@@ -56,5 +56,4 @@ The user can preview a website under construction or another HTML file of their 
 
 By default, the function opens the HTML file that the user has saved for display, but the user can also select another HTML file to display by clicking the checkbox and then pressing the "preview" button. The checkbox and button open a file selection dialog from which the user can browse to the HTML file they want to display. See the example image below.
 
-![alt text](htmleditor.png)
-
+![alt text](HtmlEditor/images/htmleditor.png)
