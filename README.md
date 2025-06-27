@@ -22,6 +22,12 @@ AUTOMATIC GENERATION OF MORE COMPLEX HTML TEMPLATES
 
 The application uses an SQLite database to store the source code for more complex elements, such as HTML forms and tables. The user can import these standard codes into the editing view by selecting the correct option from the WPF ComboBox component.
 
+DEBUGGING HTML
+
+The application has HTML code testing methods that can be executed with the click of a button. Currently, the methods test that the HTML base code is written correctly, and another test checks for missing link references. Below is an example image where the application displays a message box stating that the HTML boilerplate code is accepted, but a missing link reference is found.
+
+![alt text](HtmlEditor/images/testcase.png)
+
 AUTOCOMPLETE TEXT
 
 The user can also utilize automatic text completion when writing html tags. This feature can be enabled by clicking the checkbox. When the feature is selected, the application's UI displays an autocomplete box element to the user. The autocomplete functionality is implemented using the DotNetProjects.WpfToolkit.Input library. (https://www.nuget.org/packages/DotNetProjects.WpfToolkit.Input/).

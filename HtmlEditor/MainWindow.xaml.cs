@@ -58,7 +58,7 @@ namespace HtmlEditor
         DgDebug dgd = new DgDebug();
         List<DgDebug> debugList = new List<DgDebug>();
         public int count = 0;
-
+        Testcases testCases = new Testcases();
         public MainWindow()
         {
 
@@ -239,7 +239,7 @@ namespace HtmlEditor
         {
             double txtBoxHeight = txtBox.Height;
             double txtBoxWidth = txtBox.Width;
-            sizing.txtBoxBigger(txtBox, txtBoxHeight, txtBoxWidth, saveBtn, boxDecreaseBtn, boxIncreaseBtn, resetBtn,currentSize);
+            sizing.txtBoxBigger(txtBox, txtBoxHeight, txtBoxWidth, saveBtn, boxDecreaseBtn, boxIncreaseBtn, resetBtn, currentSize);
 
 
         }
@@ -413,7 +413,13 @@ namespace HtmlEditor
             //tässä tapauksessa sql id:nä oikean skriptin hakemiseen. Ensimmäisellä CBitemilla tag on 1
             //toisella 2 jne.
             var sqlId = ((ComboBoxItem)sender).Tag;
-            dbconnection.fetchScript(txtBox,sqlId,CaretIndex);
+            dbconnection.fetchScript(txtBox, sqlId, CaretIndex);
+        }
+
+        private void testbtn_Click(object sender, RoutedEventArgs e)
+        {
+            testCases.testBoilerPlateHtml(txtBox);
+         
         }
     }
 }
