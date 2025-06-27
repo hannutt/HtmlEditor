@@ -181,8 +181,8 @@ namespace HtmlEditor
             string boilerPlate = "<!DOCTYPE html>\r\n<html>\r\n<head>\r\n<link rel=\"stylesheet\" href=\"styles.css\"> \r\n<title>Page Title</title>\r\n</head>\r\n\r\n<body>\r\n    <h2>Welcome</h2>\r\n</body>\r\n\r\n</html>";
             txtBox.AppendText(boilerPlate);
             //buttonit muutetaan näkyviksi
-            tagBtn1.Visibility = Visibility.Visible;
-            tagBtn2.Visibility = Visibility.Visible;
+            //tagBtn1.Visibility = Visibility.Visible;
+            //tagBtn2.Visibility = Visibility.Visible;
 
         }
         private void htmlBsJquery_Checked(object sender, RoutedEventArgs e)
@@ -420,6 +420,18 @@ namespace HtmlEditor
         {
             testCases.testBoilerPlateHtml(txtBox);
          
+        }
+
+        private void DataGridCB_Checked(object sender, RoutedEventArgs e)
+        {
+            debugdg.Visibility = Visibility.Hidden;
+            DataGridCB.Content = "Show Datagrid";
+        }
+
+        private void DataGridCB_Unchecked(object sender, RoutedEventArgs e)
+        {
+            debugdg.Visibility = Visibility.Visible;
+            DataGridCB.Content = "Hide Datagrid";
         }
     }
 }
