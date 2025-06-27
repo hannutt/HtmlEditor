@@ -63,6 +63,35 @@ namespace HtmlEditor
             }
 
         }
+        public void fetchScript(System.Windows.Controls.TextBox txtBox, object sqlId, int caretIndex)
+        {
+            var script = "";
+            var sql = "Select script FROM bsscripts WHERE id="+sqlId.ToString();
+            try
+            {
+                using var connection = new SqliteConnection(@"Data Source=C:\\Users\\Omistaja\\source\\repos\\hannutt\\HtmlEditor\\HtmlEditor\\assets\\editorDB.db");
+                connection.Open();
+
+                using var command = new SqliteCommand(sql, connection);
+                using var reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        script = reader.GetString(0);
+
+                    }
+                    //caretIndeksin avulla boilerpate koodi lisätään siihen kohtaan, missä kursori on.
+                    txtBox.Text = txtBox.Text.Insert(txtBox.CaretIndex, script);
+                }
+            }
+
+            catch (SqliteException e)
+            {
+                //mahdollinen sqlite-virhe näytetään viesti-ikkunassa.
+                MessageBox.Show(e.Message.ToString());
+            }
+        }
 
         public void fetchDbData(System.Windows.Controls.TextBox txtBox, System.Windows.Controls.Button boxDecreaseBtn, System.Windows.Controls.Button boxIncreaseBtn, System.Windows.Controls.Button resetBtn, System.Windows.Controls.Button saveBtn)
         {
@@ -92,9 +121,6 @@ namespace HtmlEditor
                             values.Add(reader.GetDouble(j));
 
                         }
-
-
-
                     }
                     txtBox.Width = values[0];
                     txtBox.Height = values[1];

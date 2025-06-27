@@ -36,12 +36,13 @@ namespace HtmlEditor
             get { return resetBtnMargin; }
             set { resetBtnMargin = value; }
         }
-        public void txtBoxBigger(System.Windows.Controls.TextBox txtBox, double txtBoxHeight, double txtBoxWidth, System.Windows.Controls.Button saveBtn, System.Windows.Controls.Button boxDecreaseBtn, System.Windows.Controls.Button boxIncreaseBtn, System.Windows.Controls.Button resetBtn)
+        public void txtBoxBigger(System.Windows.Controls.TextBox txtBox, double txtBoxHeight, double txtBoxWidth, System.Windows.Controls.Button saveBtn, System.Windows.Controls.Button boxDecreaseBtn, System.Windows.Controls.Button boxIncreaseBtn, System.Windows.Controls.Button resetBtn, System.Windows.Controls.Label currentSize)
         {
             txtBoxHeight += 5;
             txtBoxWidth += 5;
             txtBox.Height = txtBoxHeight;
             txtBox.Width = txtBoxWidth;
+            currentSize.Content = txtBoxHeight + "x" + txtBoxWidth;
 
             //asetetaan savemarginleft propertyn avulla buttonin margin left arvo SaveBtnMarginLeft
             //kenttään.

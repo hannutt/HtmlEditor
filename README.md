@@ -1,24 +1,26 @@
-Project keywords: C#, WPF, Drag and Drop, SQLite
+Project keywords: C#, WPF, Drag and Drop, SQLite, Keyboard Bindings
 
 ABOUT THE APPLICATION
 
-A Windows Presentation Foundation-based desktop application that helps the user create HTML and CSS files. The user can use the radio buttons to choose whether the program generates HTML or CSS boilerplate code. The application supports C# drag and drop and provides ready-made HTML or CSS tags in Button elements. These tags can be dragged and dropped into a TextBox element where the HTML page is written. Button elements contain either HTML or CSS tags depending on which the user has selected.
-
-Users can also create their own HTML elements by typing them into the TextField input field. After typing, the element is generated in its own button element and can be dragged and dropped into the TextBox element. The user can also use keyboard shortcuts to create and insert HTML tags in the editing view.
+A Windows Presentation Foundation-based desktop application that helps and speeds up the creation of HTML and CSS files. The application provides the user with, for example, a comprehensive selection of ready-made HTML basic codes for forms and tables stored in a SQL database that can be retrieved with a mouse click, keyboard shortcuts to speed up the creation of HTML tags, drag-and-drop features, and automatically generated HTML attributes for HTML tags.
 
 HTML TAGS SHORTCUTS
 
 The application supports adding HTML tags using keyboard shortcuts.
 Single-character tags can be added using the key combination Ctrl + the letter of the tag.
 For example, Ctrl+P adds a p tag to the position where the cursor is in the editing view.
-Multi-character tags are added using the key combination Shift + the first letter of the tag. For example, Shift + D adds a div tag.
+Multi-character tags are added using the key combination Shift + the first letter of the tag. For example, Shift + D adds a div tag to the position where the cursor is in the editing view.
 
-The application determines the cursor position using the CaretIndex property of C#.
-(https://learn.microsoft.com/en-us/dotnet/api/system.windows.controls.textbox.caretindex?view=windowsdesktop-9.0). Keyboard bindings are done using the WPF KeyDown events of C#.
+The application determines the cursor position using the C# CaretIndex property.
+(https://learn.microsoft.com/en-us/dotnet/api/system.windows.controls.textbox.caretindex?view=windowsdesktop-9.0). Keyboard bindings are done using the C# WPF KeyDown and KeyUp events.
 
 AUTOMATIC CREATION OF HTML ATTRIBUTES
 
 The user can select the "Create ID and class attributes" checkbox if they want id, class, and name attributes to be automatically created for HTML tags. The automatically created attributes are in the format YourID1, YourID2, etc. The variable number at the end of the attribute name ensures that each html id is unique.
+
+AUTOMATIC GENERATION OF MORE COMPLEX HTML TEMPLATES
+
+The application uses an SQLite database to store the source code for more complex elements, such as HTML forms and tables. The user can import these standard codes into the editing view by selecting the correct option from the WPF ComboBox component.
 
 AUTOCOMPLETE TEXT
 

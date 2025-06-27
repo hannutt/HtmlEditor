@@ -239,7 +239,7 @@ namespace HtmlEditor
         {
             double txtBoxHeight = txtBox.Height;
             double txtBoxWidth = txtBox.Width;
-            sizing.txtBoxBigger(txtBox, txtBoxHeight, txtBoxWidth, saveBtn, boxDecreaseBtn, boxIncreaseBtn, resetBtn);
+            sizing.txtBoxBigger(txtBox, txtBoxHeight, txtBoxWidth, saveBtn, boxDecreaseBtn, boxIncreaseBtn, resetBtn,currentSize);
 
 
         }
@@ -297,10 +297,10 @@ namespace HtmlEditor
         {
 
             Dictionary<Key, string> tagsWithAttributes = new Dictionary<Key, string>();
-            tagsWithAttributes.Add(Key.L, "<li id='yourLIiD" + attrCount +"'"+ "class='yourClass'></li>");
-            tagsWithAttributes.Add(Key.O, "<ol id='yourOLiD" + attrCount +"'"+ "class='yourClass'></ol>");
-            tagsWithAttributes.Add(Key.D, "<div id='yourDivID" + attrCount +"'"+ "class='yourClass'></div>");
-            tagsWithAttributes.Add(Key.U, "<ul id='yourULiD" + attrCount +"'" +"class='yourClass'></ul>");
+            tagsWithAttributes.Add(Key.L, "<li id='yourLIiD" + attrCount + "'" + "class='yourClass'></li>");
+            tagsWithAttributes.Add(Key.O, "<ol id='yourOLiD" + attrCount + "'" + "class='yourClass'></ol>");
+            tagsWithAttributes.Add(Key.D, "<div id='yourDivID" + attrCount + "'" + "class='yourClass'></div>");
+            tagsWithAttributes.Add(Key.U, "<ul id='yourULiD" + attrCount + "'" + "class='yourClass'></ul>");
             tagsWithAttributes.Add(Key.B, "<button yourButtonID" + attrCount + "'" + "class='yourClass'></button>");
 
             Dictionary<Key, string> tagsWithoutAttributes = new Dictionary<Key, string>();
@@ -326,9 +326,6 @@ namespace HtmlEditor
                 addToDataGrid();
             }
         }
-      
-
-   
         private void addToDataGrid()
         {
 
@@ -408,6 +405,15 @@ namespace HtmlEditor
         private void createAttributes_Unchecked(object sender, RoutedEventArgs e)
         {
             createAttr = false;
+        }
+
+        private void callFetch(object sender, RoutedEventArgs e)
+        {
+            //comboboxitemilla on XAML:ssa Tag-property, jota käytetään
+            //tässä tapauksessa sql id:nä oikean skriptin hakemiseen. Ensimmäisellä CBitemilla tag on 1
+            //toisella 2 jne.
+            var sqlId = ((ComboBoxItem)sender).Tag;
+            dbconnection.fetchScript(txtBox,sqlId,CaretIndex);
         }
     }
 }
