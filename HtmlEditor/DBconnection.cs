@@ -1,11 +1,14 @@
 ﻿using Microsoft.Data.Sqlite;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media.Media3D;
 namespace HtmlEditor
 {
@@ -63,10 +66,68 @@ namespace HtmlEditor
             }
 
         }
+        public void GetHotkeys(TextBox txtBox, KeyEventArgs e, bool createAttr)
+        {   //lista, johon tallettevat arvot ovat key-tyyppiä eli näppäimistön näppäimiä
+            List<Key> tagsWithOneChar = new List<Key>();
+            var kbShort = "";
+            var sql = "Select hotkey from kbshorts";
+            try
+            {
+                using var connection = new SqliteConnection(@"Data Source=C:\\Users\\Omistaja\\source\\repos\\hannutt\\HtmlEditor\\HtmlEditor\\assets\\editorDB.db");
+                connection.Open();
+
+                using var command = new SqliteCommand(sql, connection);
+                using var reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        //pikanäppäimet ovat tietokannassa merkkijonoja, eli ne haetaa ensin string muuttujaan
+                        kbShort = reader.GetString(0);
+                        //parseroidaan string muuttujat key-tyypiksi eli näppäimistön näppäimiksi
+                        Enum.TryParse(kbShort, out Key hotkey);
+
+                        //lisätään jokainen näppäin listaan
+                        tagsWithOneChar.Add(hotkey);
+                    }
+
+                }
+            }
+
+            catch (SqliteException ex)
+            {
+                //mahdollinen sqlite-virhe näytetään viesti-ikkunassa.
+                MessageBox.Show(ex.Message.ToString());
+            }
+            //listan läpikäynti, jokainen listan alkio on i muuttujassa, count on sama kuin length string listassa
+            for (int i = 0; i < tagsWithOneChar.Count; i++)
+            {
+                if (Keyboard.Modifiers == ModifierKeys.Control && e.Key == tagsWithOneChar[i] && createAttr)
+                {
+                    //count += 1;
+                    txtBox.Text = txtBox.Text.Insert(txtBox.CaretIndex, "<" + e.Key.ToString().ToLower() + " id='yourId" + "'" + " class='yourClass" + "'" + ">" + "</" + e.Key.ToString().ToLower() + ">");
+                    //lisätään DgDebug luokan Tag ja Added propertyihin arvot
+                    //debugList.Add(new DgDebug() { Tag = "<" + e.Key.ToString().ToLower() + "> </" + e.Key.ToString().ToLower() + ">", Added = DateTime.Now.ToString(), Order = count });
+                    //addToDataGrid();
+                }
+
+                else if (Keyboard.Modifiers == ModifierKeys.Control && e.Key == tagsWithOneChar[i])
+                {
+                    txtBox.Text = txtBox.Text.Insert(txtBox.CaretIndex, "<" + e.Key.ToString().ToLower() + ">" + "</" + e.Key.ToString().ToLower() + ">");
+                    //count += 1;
+                    //lisätään DgDebug luokan Tag ja Added propertyihin arvot
+                    //debugList.Add(new DgDebug() { Tag = "<" + e.Key.ToString().ToLower() + "> </" + e.Key.ToString().ToLower() + ">", Added = DateTime.Now.ToString(), Order = count });
+                    //addToDataGrid();
+
+                }
+
+            }
+
+        }
         public void fetchScript(System.Windows.Controls.TextBox txtBox, object sqlId, int caretIndex)
         {
             var script = "";
-            var sql = "Select script FROM bsscripts WHERE id="+sqlId.ToString();
+            var sql = "Select script FROM bsscripts WHERE id=" + sqlId.ToString();
             try
             {
                 using var connection = new SqliteConnection(@"Data Source=C:\\Users\\Omistaja\\source\\repos\\hannutt\\HtmlEditor\\HtmlEditor\\assets\\editorDB.db");

@@ -14,7 +14,7 @@ namespace HtmlEditor
         public void testBoilerPlateHtml(TextBox txtBox)
         {
             int j = 0;
-
+            string res = "";
             string[] tags = { "<!DOCTYPE html>", "<html>", "</html>", "<body>", "</body>", "<head>", "</head>" };
             var html = txtBox.Text;
             for (int i = 0; i < tags.Length; i++)
@@ -27,30 +27,44 @@ namespace HtmlEditor
                     //jokaisen löydetyn tagin jälkeen.
                     if (j == 7)
                     {
-                        string res = "Boilerplate code passed.";
-                        testLinkReference(html,res);
+                        res = "Boilerplate code passed.";
+                        testLinkReference(html, res);
                     }
                 }
-               
+
                 else
                 {
-                    MessageBox.Show("test failed");
-                    //päätetään metodin suoritus, muuten messagebox näytettäisiin useamman kerran
-                    return;
+                    res = "Boilerplate code failed";
+                    testLinkReference(html, res);
                 }
-
             }
-
         }
         public void testLinkReference(string html, string res)
         {
-            if (html.Contains("href=>") || html.Contains(" <a href="));
+            string linkres = "";
+            string finalresult = "";
+            string[] linkTags = { "href=>", " <a href=","<a href=>", "script src=" };
+            for (int i = 0; i < linkTags.Length; i++)
             {
-                string linkres = "Missing link reference found.";
-                string finalresult = res + " " + linkres;
+                if (html.Contains(linkTags[i]))
+                {
+                    linkres = "Missing link reference found.";
+                    finalresult = res + " " + linkres;
 
-                MessageBox.Show(finalresult);
+                    MessageBox.Show(finalresult);
+                    return;
+                }
+                else
+                {
+                    linkres = "No missing link references";
+                    finalresult = res + " " + linkres;
+                    MessageBox.Show(finalresult);
+                    //päätetään metodin suoritus, muuten messagebox näytettäisiin useamman kerran
+                    return;
+                }
             }
+
         }
+
     }
 }

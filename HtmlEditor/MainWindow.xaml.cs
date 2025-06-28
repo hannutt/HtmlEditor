@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using Microsoft.Data.Sqlite;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -254,45 +255,10 @@ namespace HtmlEditor
 
         private void txtBox_KeyDown(object sender, KeyEventArgs e)
         {
-            List<Key> tagsWithOneChar = new List<Key>();
-            tagsWithOneChar.Add(Key.P);
-            tagsWithOneChar.Add(Key.A);
-            tagsWithOneChar.Add(Key.B);
-            tagsWithOneChar.Add(Key.U);
-            tagsWithOneChar.Add(Key.I);
-
-
-            //listan läpikäynti, jokainen listan alkio on i muuttujassa, count on sama kuin length string listassa
-            for (int i = 0; i < tagsWithOneChar.Count; i++)
-            {
-                //jos control + listalla oleva näppäin on painettu tulostetaa tekstilaatikko painettu
-                //näppäin ilman controllia.
-                if (Keyboard.Modifiers == ModifierKeys.Control && e.Key == tagsWithOneChar[i] && createAttr)
-                {
-                    count += 1;
-                    txtBox.Text = txtBox.Text.Insert(txtBox.CaretIndex, "<" + e.Key.ToString().ToLower() + " id='yourId" + count + "'" + " class='yourClass" + count + "'" + ">" + "</" + e.Key.ToString().ToLower() + ">");
-
-                    //lisätään DgDebug luokan Tag ja Added propertyihin arvot
-                    debugList.Add(new DgDebug() { Tag = "<" + e.Key.ToString().ToLower() + "> </" + e.Key.ToString().ToLower() + ">", Added = DateTime.Now.ToString(), Order = count });
-                    addToDataGrid();
-
-                }
-                else if (Keyboard.Modifiers == ModifierKeys.Control && e.Key == tagsWithOneChar[i])
-                {
-                    count += 1;
-                    txtBox.Text = txtBox.Text.Insert(txtBox.CaretIndex, "<" + e.Key.ToString().ToLower() + ">" + "</" + e.Key.ToString().ToLower() + ">");
-
-                    //lisätään DgDebug luokan Tag ja Added propertyihin arvot
-                    debugList.Add(new DgDebug() { Tag = "<" + e.Key.ToString().ToLower() + "> </" + e.Key.ToString().ToLower() + ">", Added = DateTime.Now.ToString(), Order = count });
-                    addToDataGrid();
-
-                }
-
-
-            }
-
-
+            dbconnection.GetHotkeys(txtBox, e, createAttr);
         }
+          
+
         private void txtBox_KeyUp(object sender, KeyEventArgs e)
         {
 
@@ -419,7 +385,7 @@ namespace HtmlEditor
         private void testbtn_Click(object sender, RoutedEventArgs e)
         {
             testCases.testBoilerPlateHtml(txtBox);
-         
+
         }
 
         private void DataGridCB_Checked(object sender, RoutedEventArgs e)

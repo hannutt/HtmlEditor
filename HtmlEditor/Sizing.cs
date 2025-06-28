@@ -42,7 +42,7 @@ namespace HtmlEditor
             txtBoxWidth += 5;
             txtBox.Height = txtBoxHeight;
             txtBox.Width = txtBoxWidth;
-            currentSize.Content = txtBoxHeight + "x" + txtBoxWidth;
+            currentSize.Content = txtBoxWidth + "x" + txtBoxHeight;
 
             //asetetaan savemarginleft propertyn avulla buttonin margin left arvo SaveBtnMarginLeft
             //kenttään.
@@ -61,8 +61,8 @@ namespace HtmlEditor
                 sizeBtnMinus += 5;
                 resetBtnMargin += 5;
                 saveBtn.Margin = new System.Windows.Thickness(saveBtnMarginLeft, saveBtn.Margin.Top, saveBtn.Margin.Right, saveBtn.Margin.Bottom);
-                boxDecreaseBtn.Margin = new System.Windows.Thickness(sizeBtnPlus, boxDecreaseBtn.Margin.Top, boxDecreaseBtn.Margin.Right, boxDecreaseBtn.Margin.Bottom);
-                boxIncreaseBtn.Margin = new System.Windows.Thickness(sizeBtnMinus, boxIncreaseBtn.Margin.Top, boxDecreaseBtn.Margin.Right, boxDecreaseBtn.Margin.Bottom);
+                boxDecreaseBtn.Margin = new System.Windows.Thickness(sizeBtnMinus, boxDecreaseBtn.Margin.Top, boxDecreaseBtn.Margin.Right, boxDecreaseBtn.Margin.Bottom);
+                boxIncreaseBtn.Margin = new System.Windows.Thickness(sizeBtnPlus, boxIncreaseBtn.Margin.Top, boxIncreaseBtn.Margin.Right, boxIncreaseBtn.Margin.Bottom);
                 resetBtn.Margin = new System.Windows.Thickness(resetBtnMargin, resetBtn.Margin.Top, resetBtn.Margin.Right, resetBtn.Margin.Bottom);
             }
         }
@@ -84,8 +84,8 @@ namespace HtmlEditor
                 sizeBtnMinus -= 5;
                 resetBtnMargin -= 5;
                 saveBtn.Margin = new System.Windows.Thickness(saveBtnMarginLeft, saveBtn.Margin.Top, saveBtn.Margin.Right, saveBtn.Margin.Bottom);
-                boxDecreaseBtn.Margin = new System.Windows.Thickness(sizeBtnPlus, boxDecreaseBtn.Margin.Top, boxDecreaseBtn.Margin.Right, boxDecreaseBtn.Margin.Bottom);
-                boxIncreaseBtn.Margin = new System.Windows.Thickness(sizeBtnMinus, boxIncreaseBtn.Margin.Top, boxDecreaseBtn.Margin.Right, boxDecreaseBtn.Margin.Bottom);
+                boxDecreaseBtn.Margin = new System.Windows.Thickness(sizeBtnMinus, boxDecreaseBtn.Margin.Top, boxDecreaseBtn.Margin.Right, boxDecreaseBtn.Margin.Bottom);
+                boxIncreaseBtn.Margin = new System.Windows.Thickness(sizeBtnPlus, boxIncreaseBtn.Margin.Top, boxIncreaseBtn.Margin.Right, boxIncreaseBtn.Margin.Bottom);
                 resetBtn.Margin = new System.Windows.Thickness(resetBtnMargin, resetBtn.Margin.Top, resetBtn.Margin.Right, resetBtn.Margin.Bottom);
             }
 
