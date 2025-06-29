@@ -1,4 +1,4 @@
-Project keywords: C#, WPF, Drag and Drop, SQLite, Keyboard Bindings
+Project keywords: C#, WPF, Drag and Drop, SQLite, Keyboard Bindings, WPF Toolkit
 
 ABOUT THE APPLICATION
 
@@ -16,6 +16,17 @@ The keyboard shortcuts are stored in the SQL database as text and when retrieved
 The application determines the cursor position using the C# CaretIndex property.
 (https://learn.microsoft.com/en-us/dotnet/api/system.windows.controls.textbox.caretindex?view=windowsdesktop-9.0). Keyboard bindings are done using the C# WPF KeyDown and KeyUp events.
 
+DRAG AND DROP TAGS & AUTOCOMPLETE TEXT
+
+The user can enter HTML and CSS tags using the input field. When the tag is entered, a lost focus event occurs in the input field, which moves the entered tag to the button element.
+From the button event, the user can drag and drop the tag into the text box element.
+This feature is implemented using the C# Dran And Drop class.
+
+The user can also utilize automatic text completion when writing html tags. This feature can be enabled by clicking the checkbox. When the feature is selected, the application's UI displays an autocomplete box element to the user. The autocomplete functionality is implemented using the DotNetProjects.WpfToolkit.Input library. (https://www.nuget.org/packages/DotNetProjects.WpfToolkit.Input/).The suggested HTML tags are loaded from a text file used by the application based on the user's input.
+
+Example image of the auto-fill feature in use
+![alt text](HtmlEditor/images/wpfAC.png)
+
 AUTOMATIC CREATION OF HTML ATTRIBUTES
 
 The user can select the "Create ID and class attributes" checkbox if they want id, class, and name attributes to be automatically created for HTML tags. The automatically created attributes are in the format YourID1, YourID2, etc. The variable number at the end of the attribute name ensures that each html id is unique.
@@ -30,13 +41,6 @@ The application has HTML code testing methods that can be executed with the clic
 
 ![alt text](HtmlEditor/images/testcase.png)
 
-AUTOCOMPLETE TEXT
-
-The user can also utilize automatic text completion when writing html tags. This feature can be enabled by clicking the checkbox. When the feature is selected, the application's UI displays an autocomplete box element to the user. The autocomplete functionality is implemented using the DotNetProjects.WpfToolkit.Input library. (https://www.nuget.org/packages/DotNetProjects.WpfToolkit.Input/).
-The suggested HTML tags are loaded from a text file used by the application based on the user's input.
-
-Example image of the auto-fill feature in use
-![alt text](HtmlEditor/images/wpfAC.png)
 
 SIZING & RESPONSIVE FEATURES
 

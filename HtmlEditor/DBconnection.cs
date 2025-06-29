@@ -66,6 +66,36 @@ namespace HtmlEditor
             }
 
         }
+        public void fetchHtmlBoilerPlate(TextBox txtBox)
+        {
+            var script = "";
+            var sql = "SELECT script FROM bsscripts WHERE id=3";
+            try
+            {
+                using var connection = new SqliteConnection(@"Data Source=C:\\Users\\Omistaja\\source\\repos\\hannutt\\HtmlEditor\\HtmlEditor\\assets\\editorDB.db");
+                connection.Open();
+
+                using var command = new SqliteCommand(sql, connection);
+                using var reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        
+                        script = reader.GetString(0);
+                        txtBox.AppendText(script);
+                    
+                    }
+
+                }
+            }
+
+            catch (SqliteException ex)
+            {
+                //mahdollinen sqlite-virhe näytetään viesti-ikkunassa.
+                MessageBox.Show(ex.Message.ToString());
+            }
+        }
         public void GetHotkeys(TextBox txtBox, KeyEventArgs e, bool createAttr)
         {   //lista, johon tallettevat arvot ovat key-tyyppiä eli näppäimistön näppäimiä
             List<Key> tagsWithOneChar = new List<Key>();

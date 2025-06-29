@@ -80,12 +80,7 @@ namespace HtmlEditor
 
         }
 
-        //aloittaa raahauksen
-        private void tagBtn1_MouseMove(object sender, MouseEventArgs e)
-        {
-            //ptagBtn on elementti ja ptagBtn.content on elementin teksti, joka raahataan ja pudotetaan
-            DragDrop.DoDragDrop(tagBtn1, tagBtn1.Content, DragDropEffects.Move);
-        }
+      
 
         //tiedostodialogin avaus
         private void fDialog_Selected(object sender, RoutedEventArgs e)
@@ -99,10 +94,7 @@ namespace HtmlEditor
             txtBox.AppendText(content);
         }
 
-        private void tagBtn2_MouseMove(object sender, MouseEventArgs e)
-        {
-            DragDrop.DoDragDrop(tagBtn2, tagBtn2.Content, DragDropEffects.Move);
-        }
+       
         //lost focus eli kun kursori poistuu kentästä
         private void writeTag_LostFocus(object sender, RoutedEventArgs e)
         {
@@ -179,11 +171,7 @@ namespace HtmlEditor
 
         private void htmlRadio_Checked(object sender, RoutedEventArgs e)
         {
-            string boilerPlate = "<!DOCTYPE html>\r\n<html>\r\n<head>\r\n<link rel=\"stylesheet\" href=\"styles.css\"> \r\n<title>Page Title</title>\r\n</head>\r\n\r\n<body>\r\n    <h2>Welcome</h2>\r\n</body>\r\n\r\n</html>";
-            txtBox.AppendText(boilerPlate);
-            //buttonit muutetaan näkyviksi
-            //tagBtn1.Visibility = Visibility.Visible;
-            //tagBtn2.Visibility = Visibility.Visible;
+            dbconnection.fetchHtmlBoilerPlate(txtBox);
 
         }
         private void htmlBsJquery_Checked(object sender, RoutedEventArgs e)
@@ -199,10 +187,7 @@ namespace HtmlEditor
 
         private void cssRadio_Click(object sender, RoutedEventArgs e)
         {
-            tagBtn1.Content = "color:";
-            tagBtn2.Content = "text-align:";
-            tagBtn1.Visibility = Visibility.Visible;
-            tagBtn2.Visibility = Visibility.Visible;
+            
             string cssBoilerPlate = "html {\r\n}\r\nbody{\r\n}";
             txtBox.AppendText(cssBoilerPlate);
         }

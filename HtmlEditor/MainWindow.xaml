@@ -32,10 +32,9 @@
             <ComboBoxItem x:Name="CreateTable" Content="Create HTML table" Selected="callFetch" Tag="2"></ComboBoxItem>
         </ComboBox>
         <WebBrowser x:Name="wbrow" HorizontalAlignment="Left" Height="189" Margin="490,209,0,0" VerticalAlignment="Top" Width="274" SnapsToDevicePixels="True" Grid.Column="1"/>
-        <Button x:Name="tagBtn1" Content="&lt;p&gt;&lt;/p&gt;" HorizontalAlignment="Left" Margin="23,69,0,0" VerticalAlignment="Top" MouseMove="tagBtn1_MouseMove" Visibility="Hidden" Grid.ColumnSpan="2" />
-        <Button x:Name="tagBtn2" Content="&lt;h1&gt;&lt;/h1&gt;" HorizontalAlignment="Left" Margin="67,69,0,0" VerticalAlignment="Top" MouseMove="tagBtn2_MouseMove" Visibility="Hidden" Grid.Column="1"/>
+
         <TextBox x:Name="writeTag" HorizontalAlignment="Left" Margin="23,95,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" LostFocus="writeTag_LostFocus" Text="WRITE TAG HERE" Grid.ColumnSpan="2" />
-        <Button x:Name="writedTag" Content="" HorizontalAlignment="Left" Margin="23,119,0,0" VerticalAlignment="Top" MouseMove="writedTag_MouseMove"/>
+        <Button x:Name="writedTag" Content="" HorizontalAlignment="Left" Margin="124,92,0,0" VerticalAlignment="Top" MouseMove="writedTag_MouseMove" Grid.Column="1"/>
         <Button x:Name="saveBtn" Content="Save template" HorizontalAlignment="Left" Margin="321,257,0,0" VerticalAlignment="Top" Click="saveBtn_Click" Grid.Column="1"/>
         <Button x:Name="viewBtn" Content="Preview current" HorizontalAlignment="Left" Margin="500,141,0,0" VerticalAlignment="Top" Click="viewBtn_Click" Grid.Column="1"/>
 
