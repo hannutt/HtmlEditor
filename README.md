@@ -22,7 +22,7 @@ The user can enter HTML and CSS tags using the input field. When the tag is ente
 From the button event, the user can drag and drop the tag into the text box element.
 This feature is implemented using the C# Dran And Drop class.
 
-The user can also utilize automatic text completion when writing html tags. This feature can be enabled by clicking the checkbox. When the feature is selected, the application's UI displays an autocomplete box element to the user. The autocomplete functionality is implemented using the DotNetProjects.WpfToolkit.Input library. (https://www.nuget.org/packages/DotNetProjects.WpfToolkit.Input/).The suggested HTML tags are loaded from a text file used by the application based on the user's input.
+The user can also utilize automatic text completion when writing html tags. This feature can be enabled by clicking the checkbox. When the feature is selected, the application's UI displays an autocomplete box element to the user. The autocomplete functionality is implemented using the DotNetProjects.WpfToolkit.Input library. (https://www.nuget.org/packages/DotNetProjects.WpfToolkit.Input/).The suggested HTML tags are loaded from a SQLite database used by the application based on the user's input.
 
 Example image of the auto-fill feature in use
 ![alt text](HtmlEditor/images/wpfAC.png)

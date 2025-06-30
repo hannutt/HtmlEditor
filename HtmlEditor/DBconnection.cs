@@ -66,6 +66,42 @@ namespace HtmlEditor
             }
 
         }
+        public void fetchTags(AutoCompleteBox acbox)
+        {
+
+            var tag = "";
+            var sql = "SELECT * FROM tags";
+            try
+            {
+                List<string> htmltags = new List<string>();
+                using var connection = new SqliteConnection(@"Data Source=C:\\Users\\Omistaja\\source\\repos\\hannutt\\HtmlEditor\\HtmlEditor\\assets\\editorDB.db");
+                connection.Open();
+
+                using var command = new SqliteCommand(sql, connection);
+                using var reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+
+                        htmltags.Add(reader.GetString(1));
+
+                    }
+
+                    acbox.ItemsSource = htmltags;
+
+                }
+
+
+            }
+
+            catch (SqliteException ex)
+            {
+                //mahdollinen sqlite-virhe näytetään viesti-ikkunassa.
+                MessageBox.Show(ex.Message.ToString());
+            }
+        }
+
         public void fetchHtmlBoilerPlate(TextBox txtBox)
         {
             var script = "";
@@ -81,10 +117,10 @@ namespace HtmlEditor
                 {
                     while (reader.Read())
                     {
-                        
+
                         script = reader.GetString(0);
                         txtBox.AppendText(script);
-                    
+
                     }
 
                 }

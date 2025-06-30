@@ -67,10 +67,10 @@ namespace HtmlEditor
             InitializeComponent();
             setDgFields();
             string path = Directory.GetCurrentDirectory();
-
+            dbconnection.fetchTags(acbox);
             //luetaan tekstitiedoston sisältö htmltags listaan.
-            List<string> htmlTags = System.IO.File.ReadLines("C:\\Users\\Omistaja\\source\\repos\\hannutt\\HtmlEditor\\HtmlEditor\\assets\\htmltags.txt").ToList();
-            acbox.ItemsSource = htmlTags;
+            //List<string> htmlTags = System.IO.File.ReadLines("C:\\Users\\Omistaja\\source\\repos\\hannutt\\HtmlEditor\\HtmlEditor\\assets\\htmltags.txt").ToList();
+            //acbox.ItemsSource = htmlTags;
         }
         //mahdollistaa raahattavan elementin sisällön pudottamisen tekstikenttään.
         private void txtBox_Drop(object sender, DragEventArgs e)
