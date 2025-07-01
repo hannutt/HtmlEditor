@@ -33,14 +33,14 @@
         </ComboBox>
         <WebBrowser x:Name="wbrow" HorizontalAlignment="Left" Height="189" Margin="490,209,0,0" VerticalAlignment="Top" Width="274" SnapsToDevicePixels="True" Grid.Column="1"/>
 
-        <TextBox x:Name="writeTag" HorizontalAlignment="Left" Margin="23,95,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" LostFocus="writeTag_LostFocus" Text="WRITE TAG HERE" Grid.ColumnSpan="2" />
-        <Button x:Name="writedTag" Content="" HorizontalAlignment="Left" Margin="124,92,0,0" VerticalAlignment="Top" MouseMove="writedTag_MouseMove" Grid.Column="1"/>
+        <TextBox x:Name="writeTag" HorizontalAlignment="Left" Margin="23,101,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" LostFocus="writeTag_LostFocus" Text="WRITE TAG HERE" Grid.ColumnSpan="2" />
+        <Button x:Name="writedTag" Content="" HorizontalAlignment="Left" Margin="121,102,0,0" VerticalAlignment="Top" MouseMove="writedTag_MouseMove" Grid.Column="1"/>
         <Button x:Name="saveBtn" Content="Save template" HorizontalAlignment="Left" Margin="321,257,0,0" VerticalAlignment="Top" Click="saveBtn_Click" Grid.Column="1"/>
         <Button x:Name="viewBtn" Content="Preview current" HorizontalAlignment="Left" Margin="500,141,0,0" VerticalAlignment="Top" Click="viewBtn_Click" Grid.Column="1"/>
 
 
         <CheckBox x:Name="autoCompCB" Content="Use AutoComplete" HorizontalAlignment="Left" Margin="25,57,0,0" VerticalAlignment="Top" Checked="autoCompCB_Checked" Unchecked="autoCompCB_Unchecked" Grid.ColumnSpan="2"/>
-        <controls:AutoCompleteBox x:Name="acbox"  HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="7,153,0,0" Width="100" Visibility="Hidden" Grid.Column="1"></controls:AutoCompleteBox>
+        <controls:AutoCompleteBox x:Name="acbox"  HorizontalAlignment="Left" Visibility="Hidden"  VerticalAlignment="Top" Margin="32,129,0,0" Width="100" Grid.ColumnSpan="2"/>
         <Button x:Name="boxIncreaseBtn" Background="#5bf083" Content="Size +" HorizontalAlignment="Left" Margin="323,188,0,0" VerticalAlignment="Top" Click="boxIncrease_Click" RenderTransformOrigin="-0.382,-0.048" Grid.Column="1"/>
         <Button x:Name="boxDecreaseBtn" Background="#5bf083"  Content="Size -" HorizontalAlignment="Left" Margin="396,188,0,0" VerticalAlignment="Top" Click="boxDecrease_Click" Grid.Column="1"/>
         <xctk:ColorPicker x:Name="ClrPcker" HorizontalAlignment="Left" VerticalAlignment="Top" Width="60" Height="20" Margin="23,159,0,0" SelectedColorChanged="ClrPcker_SelectedColorChanged" Grid.ColumnSpan="2"></xctk:ColorPicker>
@@ -71,6 +71,7 @@
         <Label x:Name="boilerLbl" Grid.Column="1" Content="Select Boilerplate" HorizontalAlignment="Left" Margin="147,0,0,0" VerticalAlignment="Top" Width="140" FontFamily="Arial Black"/>
         <Label x:Name="functionLbl" Content="Select function" HorizontalAlignment="Left" VerticalAlignment="Top" Width="117" FontFamily="Arial Black" Grid.ColumnSpan="2" Margin="23,0,0,0"/>
         <CheckBox x:Name="DataGridCB" Grid.Column="1" Content="Hide DataGrid" HorizontalAlignment="Left" Margin="500,104,0,0" VerticalAlignment="Top" Checked="DataGridCB_Checked" Unchecked="DataGridCB_Unchecked"/>
+        <CheckBox x:Name="generateAttributes" Content="Autoc. ID &amp; Class" HorizontalAlignment="Left" Margin="25,75,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Checked="generateAttributes_Checked" Unchecked="generateAttributes_Unchecked"/>
     </Grid>
 
 

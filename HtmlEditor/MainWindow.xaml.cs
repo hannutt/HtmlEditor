@@ -66,21 +66,13 @@ namespace HtmlEditor
 
             InitializeComponent();
             setDgFields();
-            string path = Directory.GetCurrentDirectory();
-            dbconnection.fetchTags(acbox);
-            //luetaan tekstitiedoston sisältö htmltags listaan.
-            //List<string> htmlTags = System.IO.File.ReadLines("C:\\Users\\Omistaja\\source\\repos\\hannutt\\HtmlEditor\\HtmlEditor\\assets\\htmltags.txt").ToList();
-            //acbox.ItemsSource = htmlTags;
         }
         //mahdollistaa raahattavan elementin sisällön pudottamisen tekstikenttään.
         private void txtBox_Drop(object sender, DragEventArgs e)
         {
-
             txtBox.AppendText(e.Data.ToString());
 
         }
-
-      
 
         //tiedostodialogin avaus
         private void fDialog_Selected(object sender, RoutedEventArgs e)
@@ -94,7 +86,7 @@ namespace HtmlEditor
             txtBox.AppendText(content);
         }
 
-       
+
         //lost focus eli kun kursori poistuu kentästä
         private void writeTag_LostFocus(object sender, RoutedEventArgs e)
         {
@@ -187,21 +179,24 @@ namespace HtmlEditor
 
         private void cssRadio_Click(object sender, RoutedEventArgs e)
         {
-            
+
             string cssBoilerPlate = "html {\r\n}\r\nbody{\r\n}";
             txtBox.AppendText(cssBoilerPlate);
         }
 
         private void autoCompCB_Checked(object sender, RoutedEventArgs e)
         {
+            dbconnection.fetchTags(acbox, createAttr);
             writeTag.Visibility = Visibility.Hidden;
             acbox.Visibility = Visibility.Visible;
+
         }
 
         private void autoCompCB_Unchecked(object sender, RoutedEventArgs e)
         {
             writeTag.Visibility = Visibility.Visible;
             acbox.Visibility = Visibility.Hidden;
+
 
         }
         private void fontItalic_Selected(object sender, RoutedEventArgs e)
@@ -216,7 +211,7 @@ namespace HtmlEditor
             if (Keyboard.Modifiers == ModifierKeys.Control && e.Key == Key.R)
             {
                 fontSetups.DoFontRestore(txtBox);
-                // Call your method here
+
             }
 
         }
@@ -242,49 +237,12 @@ namespace HtmlEditor
         {
             dbconnection.GetHotkeys(txtBox, e, createAttr);
         }
-          
+
 
         private void txtBox_KeyUp(object sender, KeyEventArgs e)
         {
+            dbconnection.getLongerHotkeys(txtBox, e, count, debugList, debugdg);
 
-            Dictionary<Key, string> tagsWithAttributes = new Dictionary<Key, string>();
-            tagsWithAttributes.Add(Key.L, "<li id='yourLIiD" + attrCount + "'" + "class='yourClass'></li>");
-            tagsWithAttributes.Add(Key.O, "<ol id='yourOLiD" + attrCount + "'" + "class='yourClass'></ol>");
-            tagsWithAttributes.Add(Key.D, "<div id='yourDivID" + attrCount + "'" + "class='yourClass'></div>");
-            tagsWithAttributes.Add(Key.U, "<ul id='yourULiD" + attrCount + "'" + "class='yourClass'></ul>");
-            tagsWithAttributes.Add(Key.B, "<button yourButtonID" + attrCount + "'" + "class='yourClass'></button>");
-
-            Dictionary<Key, string> tagsWithoutAttributes = new Dictionary<Key, string>();
-            tagsWithoutAttributes.Add(Key.L, "<li></li>");
-            tagsWithoutAttributes.Add(Key.O, "<ol></ol>");
-            tagsWithoutAttributes.Add(Key.D, "<div></div>");
-            tagsWithoutAttributes.Add(Key.U, "<ul></ul>");
-            tagsWithoutAttributes.Add(Key.B, "<button></button>");
-
-            count += 1;
-            if (createAttr && Keyboard.Modifiers == ModifierKeys.Shift && tagsWithAttributes.ContainsKey(e.Key))
-            {
-                attrCount += 1;
-                txtBox.Text = txtBox.Text.Insert(txtBox.CaretIndex, tagsWithAttributes[e.Key]);
-                debugList.Add(new DgDebug() { Tag = tagsWithAttributes[e.Key], Added = DateTime.Now.ToString(), Order = count });
-                addToDataGrid();
-
-            }
-            else if (Keyboard.Modifiers == ModifierKeys.Shift && tagsWithoutAttributes.ContainsKey(e.Key))
-            {
-                txtBox.Text = txtBox.Text.Insert(txtBox.CaretIndex, tagsWithoutAttributes[e.Key]);
-                debugList.Add(new DgDebug() { Tag = tagsWithoutAttributes[e.Key], Added = DateTime.Now.ToString(), Order = count });
-                addToDataGrid();
-            }
-        }
-        private void addToDataGrid()
-        {
-
-            foreach (DgDebug d in debugList)
-            {
-                debugdg.Items.Add(d);
-            }
-            debugList.Clear();
         }
 
         private void ClrPcker_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
@@ -350,7 +308,6 @@ namespace HtmlEditor
         private void createAttributes_Checked(object sender, RoutedEventArgs e)
         {
             createAttr = true;
-
         }
 
         private void createAttributes_Unchecked(object sender, RoutedEventArgs e)
@@ -369,7 +326,16 @@ namespace HtmlEditor
 
         private void testbtn_Click(object sender, RoutedEventArgs e)
         {
-            testCases.testBoilerPlateHtml(txtBox);
+            if (txtBox.Text == "")
+            {
+                MessageBox.Show("Write some code first");
+            }
+            else
+            {
+                testCases.testBoilerPlateHtml(txtBox);
+
+            }
+
 
         }
 
@@ -383,6 +349,19 @@ namespace HtmlEditor
         {
             debugdg.Visibility = Visibility.Visible;
             DataGridCB.Content = "Hide Datagrid";
+        }
+
+        private void generateAttributes_Checked(object sender, RoutedEventArgs e)
+        {
+            createAttr = true;
+            dbconnection.fetchTags(acbox, createAttr);
+            acbox.Visibility = Visibility.Visible;
+        }
+
+        private void generateAttributes_Unchecked(object sender, RoutedEventArgs e)
+        {
+            createAttr = false;
+            acbox.Visibility = Visibility.Hidden;
         }
     }
 }

@@ -14,6 +14,8 @@ namespace HtmlEditor
 {
     public class DBconnection
     {
+        List<DgDebug> debugList = new List<DgDebug>();
+        DgDebug dgd = new DgDebug();
         public void saveTxtBoxValues(double width, double height, System.Windows.Thickness plusMargin, Thickness minusMargin, Thickness resetMargin, Thickness saveBtnMargin)
         {
 
@@ -66,11 +68,19 @@ namespace HtmlEditor
             }
 
         }
-        public void fetchTags(AutoCompleteBox acbox)
+        public void fetchTags(AutoCompleteBox acbox, bool createAttr)
         {
+            var sql = "";
 
-            var tag = "";
-            var sql = "SELECT * FROM tags";
+            if (createAttr)
+            {
+                sql = "SELECT * FROM tagsattribute";
+            }
+            else
+            {
+                sql = "SELECT * FROM tags";
+            }
+
             try
             {
                 List<string> htmltags = new List<string>();
@@ -160,6 +170,7 @@ namespace HtmlEditor
                 }
             }
 
+
             catch (SqliteException ex)
             {
                 //mahdollinen sqlite-virhe näytetään viesti-ikkunassa.
@@ -189,6 +200,60 @@ namespace HtmlEditor
 
             }
 
+        }
+        public void getLongerHotkeys(TextBox txtBox, KeyEventArgs e, int count, List<DgDebug> debugList, DataGrid debugdg)
+        {
+            Dictionary<Key, string> tagsWithoutAttributes = new Dictionary<Key, string>();
+            var tag = "";
+            var sql = "Select tag from longerTags";
+            try
+            {
+                using var connection = new SqliteConnection(@"Data Source=C:\\Users\\Omistaja\\source\\repos\\hannutt\\HtmlEditor\\HtmlEditor\\assets\\editorDB.db");
+                connection.Open();
+
+                using var command = new SqliteCommand(sql, connection);
+                using var reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        //pikanäppäimet ovat tietokannassa merkkijonoja, eli ne haetaa ensin string muuttujaan
+                        tag = reader.GetString(0);
+                        //jaetaan merkkijono , merkin kohdalta 2 osaan, ensimmäinen on pikanäppäin
+                        //toinen on tagi, el esim. D + <div></div>
+                        string[] splitTag = tag.Split(',');
+                        //muunnetaan ensimmäinen osa tagista merkkijonosta Key-tyypiksi
+                        Enum.TryParse(splitTag[0], out Key hotkey);
+
+                        //lisätään dictionaryyn avain-arvo parina Key-tyyppi ja merkkijono.
+                        tagsWithoutAttributes.Add(hotkey, splitTag[1]);
+                    }
+
+                }
+                if (Keyboard.Modifiers == ModifierKeys.Shift && tagsWithoutAttributes.ContainsKey(e.Key))
+                {
+                    count += 1;
+                    txtBox.Text = txtBox.Text.Insert(txtBox.CaretIndex, tagsWithoutAttributes[e.Key]);
+                    debugList.Add(new DgDebug() { Tag = tagsWithoutAttributes[e.Key], Added = DateTime.Now.ToString(), Order = count });
+                    addToDataGrid(debugdg);
+                }
+            }
+
+
+            catch (SqliteException ex)
+            {
+                //mahdollinen sqlite-virhe näytetään viesti-ikkunassa.
+                MessageBox.Show(ex.Message.ToString());
+            }
+        }
+        private void addToDataGrid(DataGrid debugdg)
+        {
+
+            foreach (DgDebug d in debugList)
+            {
+                debugdg.Items.Add(d);
+            }
+            debugList.Clear();
         }
         public void fetchScript(System.Windows.Controls.TextBox txtBox, object sqlId, int caretIndex)
         {

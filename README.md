@@ -11,7 +11,10 @@ Single-character tags can be added using the key combination Ctrl + the letter o
 For example, Ctrl+P adds a p tag to the position where the cursor is in the editing view.
 Multi-character tags are added using the key combination Shift + the first letter of the tag. For example, Shift + D adds a div tag to the position where the cursor is in the editing view.
 
-The keyboard shortcuts are stored in the SQL database as text and when retrieved, the text is converted to a C# key data type using the Enum.TryParse method.
+Single-character keyboard shortcuts are stored in the SQL database as text, and when retrieved, the text is converted to the C# key data type using the Enum.TryParse method.
+
+Shortcut keys for longer tags are also stored in the SQL database as keyboard key tags. For example, D, `<div></div>`, where D is the shortcut key and `<div></div>` is the tag to be printed in the text box component.
+When this information is retrieved from the database, it is stored in a dictionary object of type keyboard key string. Before being stored, the strings are split into two parts. The first part is converted to the C# keyboard key data type, and the second part remains as a string.
 
 The application determines the cursor position using the C# CaretIndex property.
 (https://learn.microsoft.com/en-us/dotnet/api/system.windows.controls.textbox.caretindex?view=windowsdesktop-9.0). Keyboard bindings are done using the C# WPF KeyDown and KeyUp events.
