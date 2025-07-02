@@ -233,29 +233,35 @@ namespace HtmlEditor
                     }
 
                 }
-
+                //alustetaan muuttuja jo tässä, että sitä voidaan käyttää if/elsen ulkopuolella
+                string htmltagWithAttrs = "";
                 if (Keyboard.Modifiers == ModifierKeys.Shift && tagsWithoutAttributes.ContainsKey(e.Key) && createAttr)
                 {
-                    string htmltagWithAttrs;
+                    
                     //talletetaan merkkijonomuuttujaan dictionarysta avainta (eli näppäintä) vastaava arvo
                     string htmltag = tagsWithoutAttributes[e.Key];
                     //lasketaan html tagin pituus merkkeinä.
                     int htmlTagLng = htmltag.Length;
-                    //div tagin pituus on 11 merkkiä, jolloin id ja class asetetaan insertillä kohtaan4
+                    //span tagin pituus on 13 merkkiä, jolloin id ja class asetetaan insertillä kohtaan4
                     //että tagi muotoutuu oikein
-                    if (htmlTagLng == 11)
+                    if (htmlTagLng == 13)
+                    {
+                        htmltagWithAttrs = htmltag.Insert(5, " id=yourId" + attrCount + " class=yourClass" + attrCount);
+                    }
+                    else if (htmlTagLng == 11)
+
                     {
                         htmltagWithAttrs = htmltag.Insert(4, " id=yourId" + attrCount + " class=yourClass" + attrCount);
-                        txtBox.Text = txtBox.Text.Insert(txtBox.CaretIndex, htmltagWithAttrs);
-                        
-
+                      
                     }
                     //kaksimerkkiset tagit on 9 merkkiä eli attribuutin sijoitetaan kohtaa 3
                     else if (htmlTagLng == 9)
                     {
-                        htmltagWithAttrs = htmltag.Insert(3, " id=yourId"+attrCount+ " class=yourClass"+attrCount);
-                        txtBox.Text = txtBox.Text.Insert(txtBox.CaretIndex, htmltagWithAttrs);
+                        htmltagWithAttrs = htmltag.Insert(3, " id=yourId" + attrCount + " class=yourClass" + attrCount);
                     }
+                    // htmltagWithAttrs on alustettu if/elsen ulkopuolella, joten se voidaan asettaa
+                    //txtboksiin lohkon ulkopuolella, muuten allaoleva pitäisi tehdä jokaisessa if-lohkossa
+                    txtBox.Text = txtBox.Text.Insert(txtBox.CaretIndex, htmltagWithAttrs);
                     attrCount += 1;
 
 
