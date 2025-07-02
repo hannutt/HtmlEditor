@@ -48,11 +48,6 @@ namespace HtmlEditor
         }
         public int CaretIndex;
 
-        public int attrCount = 1;
-
-
-
-
         FontSetups fontSetups = new FontSetups();
         Sizing sizing = new Sizing();
         DBconnection dbconnection = new DBconnection();
@@ -241,7 +236,7 @@ namespace HtmlEditor
 
         private void txtBox_KeyUp(object sender, KeyEventArgs e)
         {
-            dbconnection.getLongerHotkeys(txtBox, e, count, debugList, debugdg);
+            dbconnection.getLongerHotkeys(txtBox, e, count, debugList, debugdg,createAttr);
 
         }
 

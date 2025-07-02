@@ -16,6 +16,7 @@ namespace HtmlEditor
     {
         List<DgDebug> debugList = new List<DgDebug>();
         DgDebug dgd = new DgDebug();
+        public int attrCount = 1;
         public void saveTxtBoxValues(double width, double height, System.Windows.Thickness plusMargin, Thickness minusMargin, Thickness resetMargin, Thickness saveBtnMargin)
         {
 
@@ -182,14 +183,16 @@ namespace HtmlEditor
                 if (Keyboard.Modifiers == ModifierKeys.Control && e.Key == tagsWithOneChar[i] && createAttr)
                 {
                     //count += 1;
-                    txtBox.Text = txtBox.Text.Insert(txtBox.CaretIndex, "<" + e.Key.ToString().ToLower() + " id='yourId" + "'" + " class='yourClass" + "'" + ">" + "</" + e.Key.ToString().ToLower() + ">");
+                    txtBox.Text = txtBox.Text.Insert(txtBox.CaretIndex, "<" + e.Key.ToString().ToLower() + " id='yourId" + attrCount + " class='yourClass" + attrCount + ">" + "</" + e.Key.ToString().ToLower() + ">");
                     //lisätään DgDebug luokan Tag ja Added propertyihin arvot
                     //debugList.Add(new DgDebug() { Tag = "<" + e.Key.ToString().ToLower() + "> </" + e.Key.ToString().ToLower() + ">", Added = DateTime.Now.ToString(), Order = count });
                     //addToDataGrid();
+                    attrCount += 1;
                 }
 
                 else if (Keyboard.Modifiers == ModifierKeys.Control && e.Key == tagsWithOneChar[i])
                 {
+
                     txtBox.Text = txtBox.Text.Insert(txtBox.CaretIndex, "<" + e.Key.ToString().ToLower() + ">" + "</" + e.Key.ToString().ToLower() + ">");
                     //count += 1;
                     //lisätään DgDebug luokan Tag ja Added propertyihin arvot
@@ -201,7 +204,7 @@ namespace HtmlEditor
             }
 
         }
-        public void getLongerHotkeys(TextBox txtBox, KeyEventArgs e, int count, List<DgDebug> debugList, DataGrid debugdg)
+        public void getLongerHotkeys(TextBox txtBox, KeyEventArgs e, int count, List<DgDebug> debugList, DataGrid debugdg, bool createAttr)
         {
             Dictionary<Key, string> tagsWithoutAttributes = new Dictionary<Key, string>();
             var tag = "";
@@ -230,7 +233,34 @@ namespace HtmlEditor
                     }
 
                 }
-                if (Keyboard.Modifiers == ModifierKeys.Shift && tagsWithoutAttributes.ContainsKey(e.Key))
+
+                if (Keyboard.Modifiers == ModifierKeys.Shift && tagsWithoutAttributes.ContainsKey(e.Key) && createAttr)
+                {
+                    string htmltagWithAttrs;
+                    //talletetaan merkkijonomuuttujaan dictionarysta avainta (eli näppäintä) vastaava arvo
+                    string htmltag = tagsWithoutAttributes[e.Key];
+                    //lasketaan html tagin pituus merkkeinä.
+                    int htmlTagLng = htmltag.Length;
+                    //div tagin pituus on 11 merkkiä, jolloin id ja class asetetaan insertillä kohtaan4
+                    //että tagi muotoutuu oikein
+                    if (htmlTagLng == 11)
+                    {
+                        htmltagWithAttrs = htmltag.Insert(4, " id=yourId" + attrCount + " class=yourClass" + attrCount);
+                        txtBox.Text = txtBox.Text.Insert(txtBox.CaretIndex, htmltagWithAttrs);
+                        
+
+                    }
+                    //kaksimerkkiset tagit on 9 merkkiä eli attribuutin sijoitetaan kohtaa 3
+                    else if (htmlTagLng == 9)
+                    {
+                        htmltagWithAttrs = htmltag.Insert(3, " id=yourId"+attrCount+ " class=yourClass"+attrCount);
+                        txtBox.Text = txtBox.Text.Insert(txtBox.CaretIndex, htmltagWithAttrs);
+                    }
+                    attrCount += 1;
+
+
+                }
+                else if (Keyboard.Modifiers == ModifierKeys.Shift && tagsWithoutAttributes.ContainsKey(e.Key))
                 {
                     count += 1;
                     txtBox.Text = txtBox.Text.Insert(txtBox.CaretIndex, tagsWithoutAttributes[e.Key]);
